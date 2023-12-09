@@ -18,8 +18,17 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Custom Options */
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
+  // 컴파일할 파일들 지정
   "include": ["src"],
+
+  // 프로젝트 의존 관계 지정
   "references": [{ "path": "./tsconfig.node.json" }]
 }
