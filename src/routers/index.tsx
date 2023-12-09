@@ -1,15 +1,15 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from 'react-router-dom';
 
-import Home from "@/pages/Home";
-import NotFound from "@/pages/NotFound";
+import Home from '@/pages/Home';
+import NotFound from '@/pages/NotFound';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Home />,
     errorElement: <NotFound />,
-    children: [{ index: true, path: "/", element: <Home /> }],
-  },
+    children: [{ index: true, path: '/', element: <Home /> }]
+  }
 ]);
 
 export default router;
