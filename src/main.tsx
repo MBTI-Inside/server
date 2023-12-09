@@ -1,10 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import { createRoot } from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import App from "@/App";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+const root = document.getElementById("root") as HTMLElement;
+
+const rootElement = createRoot(root);
+
+const queryClient = new QueryClient();
+
+rootElement.render(
+  <QueryClientProvider client={queryClient}>
     <App />
-  </React.StrictMode>,
-)
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
+);
