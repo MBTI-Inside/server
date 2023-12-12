@@ -1,15 +1,18 @@
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
-import Home from '@/pages/Home';
-import NotFound from '@/pages/NotFound';
+const Home = lazy(() => import('@/pages/Home'));
+const NotFound = lazy(() => import('@/pages/NotFound'));
 
-const router = createBrowserRouter([
+const routePaths = [
   {
     path: '/',
-    element: <Home />,
-    errorElement: <NotFound />,
-    children: [{ index: true, path: '/', element: <Home /> }]
+    element: <Home />
+  },
+  {
+    path: '/notfound',
+    element: <NotFound />
   }
-]);
+];
 
-export default router;
+export default routePaths;
