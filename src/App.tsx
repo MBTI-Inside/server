@@ -1,4 +1,3 @@
-import '@/App.css';
 import routePaths from '@/routers';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -9,13 +8,13 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header></Header>
+        <Header />
         <Routes>
           {routePaths.map((route) => (
             <Route key={route.path} path={route.path} element={route.element} />
           ))}
         </Routes>
-        <Footer></Footer>
+        <Footer />
       </BrowserRouter>
     </>
   );
