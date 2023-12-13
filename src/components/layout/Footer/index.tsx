@@ -49,7 +49,7 @@ export default function Footer() {
   return (
     <FooterContainer>
       <FooterWrap>
-        {/* <LogoSvg className="text-sm" /> */}
+        <LogoSvg className="text-sm" />
         <FooterTextArea>
           <FooterText>AYT Company</FooterText>
           <FooterText>All content is provided for fun purposes only</FooterText>
