@@ -1,7 +1,7 @@
 import Footer from './index';
 
 export default {
-  title: 'components/Footer',
+  title: 'components/layout/Footer',
   component: Footer
 };
 
