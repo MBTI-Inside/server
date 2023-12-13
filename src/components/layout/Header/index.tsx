@@ -1,4 +1,4 @@
-import { ReactComponent as MainLogoSvg } from '@/assets/image/mainlogo.svg';
+import MainLogoSvg from '@/assets/image/mainlogo.svg?react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
