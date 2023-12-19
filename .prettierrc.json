@@ -10,9 +10,11 @@
         "^@/api/(.*)$",
         "^@/hooks/(.*)$",
         "^@/components/(.*)$",
+        "^@/stores/(.*)$",
         "^@/pages/(.*)$",
         "^@/constants/(.*)$",
         "^@/utils/(.*)$",
+        "^@/assets/(.*)$",
         "^[./]"
     ],
     "importOrderSeparation": true,
