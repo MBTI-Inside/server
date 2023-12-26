@@ -11,8 +11,8 @@ export default {
         'regal-purple': '#B2ACF9'
       },
       backgroundImage: {
-        // main: `url('${import.meta.env.VITE_PUBLIC_URL}/main.svg')`
-        // test: `url('${process.env.REACT_APP_PUBLIC_URL}/test.svg')`
+        main: "url('./assets/image/main.svg')",
+        test: "url('./assets/image/test.svg')"
       },
       fontSize: {
         vxs: '0.6rem'
