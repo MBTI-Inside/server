@@ -1,26 +1,25 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import * as S from './index.styles';
 
 const Home = () => {
   return (
-    <S.Background>
-      <S.Container>
-        <S.Character />
-        <S.ContentWrapper>
-          <S.Title>ARE YOU T?</S.Title>
-          <Link to="/test">
-            <S.FirstButton>테스트 하러가기</S.FirstButton>
-          </Link>
-          <Link to="/stats">
-            <S.Button>통계 보러가기</S.Button>
-          </Link>
-          <Link to="/board">
-            <S.Button>담벼락 보러가기</S.Button>
-          </Link>
-        </S.ContentWrapper>
-      </S.Container>
-    </S.Background>
+    <S.Container>
+      <S.Character />
+      <S.ContentWrapper>
+        <S.Title>ARE YOU T?</S.Title>
+        {/* TODO: 버튼 daisyUI로 공통 컴포넌트로 만들기. */}
+        <S.Button>
+          <NavLink to="/test">테스트 하러가기</NavLink>
+        </S.Button>
+        <S.Button>
+          <NavLink to="/stats">통계 보러가기</NavLink>
+        </S.Button>
+        <S.Button>
+          <NavLink to="/board">담벼락 보러가기</NavLink>
+        </S.Button>
+      </S.ContentWrapper>
+    </S.Container>
   );
 };
 

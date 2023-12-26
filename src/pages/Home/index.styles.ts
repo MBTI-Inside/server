@@ -1,13 +1,14 @@
 import tw from 'tailwind-styled-components';
 
-export const Background = tw.div`
-`;
-
 export const Container = tw.div`
 bg-[#0272F1]
-w-[390px]
+w-full
 m-auto
 pt-16
+flex
+flex-col
+justify-center
+content-center
 `;
 
 export const ContentWrapper = tw.div`
@@ -16,7 +17,7 @@ p-5
 `;
 
 export const Character = tw.div`
-w-[390px]
+w-[430px]
 h-[342px]
 bg-main
 bg-no-repeat
