@@ -27,7 +27,7 @@
     }
   },
   // 컴파일할 파일들 지정
-  "include": ["src", "custom.d.ts"],
+  "include": ["src"],
 
   // 프로젝트 의존 관계 지정
   "references": [{ "path": "./tsconfig.node.json" }]
