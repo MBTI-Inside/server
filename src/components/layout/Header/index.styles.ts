@@ -19,13 +19,12 @@ text-black
 export const HeaderWrapper = tw.header`
   flex
   flex-wrap
-  w-[390px]
+  w-full
   m-auto
   h-auto
   shrink-0
   bg-regal-purple
-  px-2.5
-  py-5
+  p-2.5
   items-center
   justify-between
 `;
@@ -97,7 +96,3 @@ export const SideBarFooter = tw.li`
 export const SideBarFooterContent = tw.div`
   self-center
 `;
-// border-radius: 100px;
-// border: 1px solid rgba(0, 0, 0, 0.00);
-// background: #000;
-// box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
