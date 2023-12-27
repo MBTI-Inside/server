@@ -55,9 +55,9 @@ export default function Footer() {
 
       <FooterLinkIcon>
         <FooterLink
-          href="https://github.com/are-you-T"
+          href="https://github.com/rebi13/MBTI-Inside"
           target="_blank"
-          rel="are-you-T noreferrer"
+          rel="MBTI-Inside noreferrer"
         >
           <GitHubSvg />
         </FooterLink>

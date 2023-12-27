@@ -1,6 +1,7 @@
-import MainLogoSvg from '@/assets/image/mainlogo.svg?react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import MainLogoSvg from '@/assets/image/mainlogo.svg?react';
 
 import {
   Drawer,
@@ -72,11 +73,11 @@ const Header = () => {
               </SideBarFooterContent>
               <SideBarFooterContent className="pointer-events-auto text-black">
                 <a
-                  href="https://github.com/are-you-T"
+                  href="https://github.com/rebi13/MBTI-Inside"
                   target="_blank"
-                  rel="are-you-T noreferrer"
+                  rel="MBTI-Inside noreferrer"
                 >
-                  https://github.com/are-you-T
+                  https://github.com/rebi13/MBTI-Inside
                 </a>
               </SideBarFooterContent>
             </SideBarFooter>
