@@ -1,6 +1,8 @@
 // import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import SideBar from '@/components/common/SideBar';
+
 import MainLogoSvg from '@/assets/image/mainlogo.svg?react';
 
 import {
@@ -22,7 +24,9 @@ const Header = () => {
         {/* 로그인 시 표시*/}
         {/* <UserIcon /> */}
         <LoginIcon />
-        <MenuIcon />
+        <SideBar>
+          <MenuIcon />
+        </SideBar>
       </InterfaceContainer>
     </HeaderContainer>
   );
