@@ -5,30 +5,24 @@ import SideBar from '@/components/common/SideBar';
 
 import MainLogoSvg from '@/assets/image/mainlogo.svg?react';
 
-import {
-  HeaderContainer,
-  InterfaceContainer,
-  LoginIcon,
-  MenuIcon,
-  UserIcon
-} from './index.styles';
+import * as S from './index.styles';
 
 const Header = () => {
   return (
-    <HeaderContainer>
+    <S.HeaderContainer>
       <NavLink to="/">
         <MainLogoSvg />
       </NavLink>
 
-      <InterfaceContainer>
+      <S.InterfaceContainer>
         {/* 로그인 시 표시*/}
-        {/* <UserIcon /> */}
-        <LoginIcon />
+        {/* <S.UserIcon /> */}
+        <S.LoginIcon />
         <SideBar>
-          <MenuIcon />
+          <S.MenuIcon />
         </SideBar>
-      </InterfaceContainer>
-    </HeaderContainer>
+      </S.InterfaceContainer>
+    </S.HeaderContainer>
   );
 };
 
