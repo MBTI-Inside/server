@@ -19,12 +19,7 @@ export const SideBarOverlay = tw.label`
   drawer-overlay
 `;
 
-export const DrawerContent = tw.div`
-  drawer-content
-  h-9
-`;
-
-export const DrawerSide = tw.div`
+export const SideBarContentContainer = tw.div`
   drawer-side
   z-50
 `;

@@ -1,11 +1,13 @@
 import { ReactNode, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+
+import MainLogoSvg from '@/assets/image/mainlogo.svg?react';
 
 import {
-  DrawerContent,
-  DrawerSide,
   SideBarButton,
   SideBarContainer,
   SideBarContent,
+  SideBarContentContainer,
   SideBarFooter,
   SideBarFooterContent,
   SideBarOverlay,
@@ -14,7 +16,7 @@ import {
 } from './index.styles';
 
 interface SideBarProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const SideBar = ({ children }: SideBarProps) => {
@@ -26,81 +28,53 @@ const SideBar = ({ children }: SideBarProps) => {
     setIsChecked(!isChecked);
   };
 
-  {
-    /* <Drawer>
-        <DrawerContent onClick={handleDrawerToggle}>
-          <DrawerButton htmlFor="side-bar">
-            <ScaledBsList></ScaledBsList>
-          </DrawerButton>
-        </DrawerContent>
-        <DrawerSide>
-          <DrawerOverlay
-            htmlFor="side-bar"
-            onClick={handleDrawerToggle}
-          ></DrawerOverlay>
-          <SideBarContent>
-            <Link to="/" onClick={handleDrawerToggle}>
-              <Logo></Logo>
-            </Link>
-            <Link to="/test" onClick={handleDrawerToggle}>
-              <SiderBarItem className="bg-regal-yellow text-black">
-                테스트 하러가기
-              </SiderBarItem>
-            </Link>
-            <Link to="/stats" onClick={handleDrawerToggle}>
-              <SiderBarItem className="bg-black text-white">
-                통계 보러가기
-              </SiderBarItem>
-            </Link>
-            <Link to="/board" onClick={handleDrawerToggle}>
-              <SiderBarItem className="bg-black text-white">
-                담벼락 보러가기
-              </SiderBarItem>
-            </Link>
-            <SideBarFooter>
-              <SideBarFooterContent className="text-black">
-                AYT Company
-              </SideBarFooterContent>
-              <SideBarFooterContent className="pointer-events-auto text-black">
-                <a
-                  href="https://github.com/rebi13/MBTI-Inside"
-                  target="_blank"
-                  rel="MBTI-Inside noreferrer"
-                >
-                  https://github.com/rebi13/MBTI-Inside
-                </a>
-              </SideBarFooterContent>
-            </SideBarFooter>
-          </SideBarContent>
-        </DrawerSide>
-      </Drawer> */
-  }
-
   return (
     <SideBarContainer>
       <SideBarToggle id="side-bar" type="checkbox" />
       <SideBarButton htmlFor="side-bar" onClick={handleSideBarToggle}>
         {children}
       </SideBarButton>
-      <div className="drawer-side">
+      <SideBarContentContainer>
         <SideBarOverlay
           htmlFor="side-bar"
           aria-label="close sidebar"
           onClick={handleSideBarToggle}
         />
-        <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-          {/* Sidebar content here */}
-          <li>
-            <a>테스트 하러가기</a>
-          </li>
-          <li>
-            <a>통계 보러가기</a>
-          </li>
-          <li>
-            <a>담벼락 보러가기</a>
-          </li>
-        </ul>
-      </div>
+        <SideBarContent>
+          <NavLink to="/" onClick={handleSideBarToggle}>
+            <MainLogoSvg />
+          </NavLink>
+          <NavLink onClick={handleSideBarToggle} to="/test">
+            <SiderBarItem className="bg-regal-yellow text-black">
+              테스트 하러가기
+            </SiderBarItem>
+          </NavLink>
+          <NavLink to="/stats" onClick={handleSideBarToggle}>
+            <SiderBarItem className="bg-black text-white">
+              통계 보러가기
+            </SiderBarItem>
+          </NavLink>
+          <NavLink to="/board" onClick={handleSideBarToggle}>
+            <SiderBarItem className="bg-black text-white">
+              담벼락 보러가기
+            </SiderBarItem>
+          </NavLink>
+          <SideBarFooter>
+            <SideBarFooterContent className="text-black">
+              AYT Company
+            </SideBarFooterContent>
+            <SideBarFooterContent className="pointer-events-auto text-black">
+              <a
+                href="https://github.com/rebi13/MBTI-Inside"
+                target="_blank"
+                rel="MBTI-Inside noreferrer"
+              >
+                https://github.com/rebi13/MBTI-Inside
+              </a>
+            </SideBarFooterContent>
+          </SideBarFooter>
+        </SideBarContent>
+      </SideBarContentContainer>
     </SideBarContainer>
   );
 };
