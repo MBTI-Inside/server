@@ -21,6 +21,7 @@ export const SideBarOverlay = tw.label`
 
 export const SideBarContentContainer = tw.div`
   drawer-side
+  h-full
   z-50
 `;
 
@@ -54,4 +55,5 @@ export const SideBarFooter = tw.li`
 
 export const SideBarFooterContent = tw.div`
   self-center
+  text-black
 `;
