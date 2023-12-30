@@ -3,17 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import MainLogoSvg from '@/assets/image/mainlogo.svg?react';
 
-import {
-  SideBarButton,
-  SideBarContainer,
-  SideBarContent,
-  SideBarContentContainer,
-  SideBarFooter,
-  SideBarFooterContent,
-  SideBarOverlay,
-  SideBarToggle,
-  SiderBarItem
-} from './index.styles';
+import * as S from './index.styles';
 
 interface SideBarProps {
   children: ReactNode;
@@ -29,38 +19,38 @@ const SideBar = ({ children }: SideBarProps) => {
   };
 
   return (
-    <SideBarContainer>
-      <SideBarToggle
+    <S.SideBarContainer>
+      <S.SideBarToggle
         id="side-bar"
         type="checkbox"
         checked={isChecked}
         readOnly
       />
-      <SideBarButton htmlFor="side-bar" onClick={handleSideBarToggle}>
+      <S.SideBarButton htmlFor="side-bar" onClick={handleSideBarToggle}>
         {children}
-      </SideBarButton>
-      <SideBarContentContainer>
-        <SideBarOverlay
+      </S.SideBarButton>
+      <S.SideBarContentContainer>
+        <S.SideBarOverlay
           htmlFor="side-bar"
           aria-label="close sidebar"
           onClick={handleSideBarToggle}
         />
-        <SideBarContent>
+        <S.SideBarContent>
           <NavLink to="/" onClick={handleSideBarToggle}>
             <MainLogoSvg />
           </NavLink>
           <NavLink to="/test" onClick={handleSideBarToggle}>
-            <SiderBarItem>테스트 하러가기</SiderBarItem>
+            <S.SiderBarItem>테스트 하러가기</S.SiderBarItem>
           </NavLink>
           <NavLink to="/stats" onClick={handleSideBarToggle}>
-            <SiderBarItem>통계 보러가기</SiderBarItem>
+            <S.SiderBarItem>통계 보러가기</S.SiderBarItem>
           </NavLink>
           <NavLink to="/board" onClick={handleSideBarToggle}>
-            <SiderBarItem>담벼락 보러가기</SiderBarItem>
+            <S.SiderBarItem>담벼락 보러가기</S.SiderBarItem>
           </NavLink>
-          <SideBarFooter>
-            <SideBarFooterContent>AYT Company</SideBarFooterContent>
-            <SideBarFooterContent>
+          <S.SideBarFooter>
+            <S.SideBarFooterContent>AYT Company</S.SideBarFooterContent>
+            <S.SideBarFooterContent>
               <a
                 href="https://github.com/rebi13/MBTI-Inside"
                 target="_blank"
@@ -68,11 +58,11 @@ const SideBar = ({ children }: SideBarProps) => {
               >
                 https://github.com/rebi13/MBTI-Inside
               </a>
-            </SideBarFooterContent>
-          </SideBarFooter>
-        </SideBarContent>
-      </SideBarContentContainer>
-    </SideBarContainer>
+            </S.SideBarFooterContent>
+          </S.SideBarFooter>
+        </S.SideBarContent>
+      </S.SideBarContentContainer>
+    </S.SideBarContainer>
   );
 };
 
