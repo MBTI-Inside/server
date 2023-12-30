@@ -30,7 +30,7 @@ const SideBar = ({ children }: SideBarProps) => {
 
   return (
     <SideBarContainer>
-      <SideBarToggle id="side-bar" type="checkbox" />
+      <SideBarToggle id="side-bar" type="checkbox" checked={isChecked} />
       <SideBarButton htmlFor="side-bar" onClick={handleSideBarToggle}>
         {children}
       </SideBarButton>
