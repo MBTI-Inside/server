@@ -30,7 +30,12 @@ const SideBar = ({ children }: SideBarProps) => {
 
   return (
     <SideBarContainer>
-      <SideBarToggle id="side-bar" type="checkbox" checked={isChecked} />
+      <SideBarToggle
+        id="side-bar"
+        type="checkbox"
+        checked={isChecked}
+        readOnly
+      />
       <SideBarButton htmlFor="side-bar" onClick={handleSideBarToggle}>
         {children}
       </SideBarButton>
@@ -44,26 +49,18 @@ const SideBar = ({ children }: SideBarProps) => {
           <NavLink to="/" onClick={handleSideBarToggle}>
             <MainLogoSvg />
           </NavLink>
-          <NavLink onClick={handleSideBarToggle} to="/test">
-            <SiderBarItem className="bg-regal-yellow text-black">
-              테스트 하러가기
-            </SiderBarItem>
+          <NavLink to="/test" onClick={handleSideBarToggle}>
+            <SiderBarItem>테스트 하러가기</SiderBarItem>
           </NavLink>
           <NavLink to="/stats" onClick={handleSideBarToggle}>
-            <SiderBarItem className="bg-black text-white">
-              통계 보러가기
-            </SiderBarItem>
+            <SiderBarItem>통계 보러가기</SiderBarItem>
           </NavLink>
           <NavLink to="/board" onClick={handleSideBarToggle}>
-            <SiderBarItem className="bg-black text-white">
-              담벼락 보러가기
-            </SiderBarItem>
+            <SiderBarItem>담벼락 보러가기</SiderBarItem>
           </NavLink>
           <SideBarFooter>
-            <SideBarFooterContent className="text-black">
-              AYT Company
-            </SideBarFooterContent>
-            <SideBarFooterContent className="pointer-events-auto text-black">
+            <SideBarFooterContent>AYT Company</SideBarFooterContent>
+            <SideBarFooterContent>
               <a
                 href="https://github.com/rebi13/MBTI-Inside"
                 target="_blank"
