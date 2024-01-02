@@ -1,14 +1,13 @@
-import GitHubSvg from '@/assets/image/github.svg?react';
-import LogoSvg from '@/assets/image/logo.svg?react';
-import ShareSvg from '@/assets/image/share.svg?react';
+import MainLogoSvg from '@/assets/image/mainlogo.svg?react';
 
 import {
-  // FooterContainer,
+  FooterContainer,
   FooterLink,
-  FooterLinkIcon,
+  FooterNav,
   FooterText,
   FooterTextArea,
-  FooterWrapper
+  GitHubIcon,
+  ShareIcon
 } from './index.styles';
 
 export default function Footer() {
@@ -45,26 +44,44 @@ export default function Footer() {
   // };
 
   return (
-    <FooterWrapper>
-      <LogoSvg className="text-sm" />
-      <FooterTextArea>
-        <FooterText>AYT Company</FooterText>
-        <FooterText>All content is provided for fun purposes only</FooterText>
-        <FooterText>Copyright © 2023 - All right reserved</FooterText>
-      </FooterTextArea>
+    // <FooterWrapper>
+    //   <LogoSvg className="text-sm" />
+    //   <FooterTextArea>
+    //     <FooterText>AYT Company</FooterText>
+    //     <FooterText>All content is provided for fun purposes only</FooterText>
+    //     <FooterText>Copyright © 2023 - All right reserved</FooterText>
+    //   </FooterTextArea>
 
-      <FooterLinkIcon>
-        <FooterLink
-          href="https://github.com/rebi13/MBTI-Inside"
-          target="_blank"
-          rel="MBTI-Inside noreferrer"
-        >
-          <GitHubSvg />
-        </FooterLink>
-        <FooterLink onClick={() => console.log('handleShareClick')}>
-          <ShareSvg />
-        </FooterLink>
-      </FooterLinkIcon>
-    </FooterWrapper>
+    //   <FooterLinkIcon>
+    //     <FooterLink
+    //       href="https://github.com/rebi13/MBTI-Inside"
+    //       target="_blank"
+    //       rel="MBTI-Inside noreferrer"
+    //     >
+    //       <GitHubSvg />
+    //     </FooterLink>
+    //     <FooterLink onClick={() => console.log('handleShareClick')}>
+    //       <ShareSvg />
+    //     </FooterLink>
+    //   </FooterLinkIcon>
+    // </FooterWrapper>
+    <FooterContainer>
+      <FooterTextArea>
+        <MainLogoSvg />
+        <FooterText>
+          Copyright © 2024 All right reserved
+          {/* <p>Copyright © 2024</p>
+          <p>All right reserved</p> */}
+        </FooterText>
+      </FooterTextArea>
+      <FooterNav>
+        <a>
+          <GitHubIcon />
+        </a>
+        <a>
+          <ShareIcon />
+        </a>
+      </FooterNav>
+    </FooterContainer>
   );
 }
