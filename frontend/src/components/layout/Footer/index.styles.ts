@@ -1,31 +1,32 @@
+import { BsGithub } from 'react-icons/bs';
+import { BsShare } from 'react-icons/bs';
 import tw from 'tailwind-styled-components';
 
-// export const FooterContainer = tw.footer`
-//   bg-regal-purple
-//   w-full
-//   m-auto
-//   p-4
-// `;
-
-export const FooterWrapper = tw.footer`
-bg-regal-purple
-w-full
-m-auto
-p-4
-flex
-items-center
-justify-between
+export const FooterContainer = tw.footer`
+  flex
+  bg-regal-purple
+  w-full
+  items-center 
+  p-2.5
+  text-neutral-content
 `;
 
-export const FooterTextArea = tw.div`
-flex
-h-12
-flex-col
-justify-center
-flex-shrink-0
+export const GitHubIcon = tw(BsGithub)`
+  text-4xl
+  text-black
 `;
 
-export const FooterLinkIcon = tw.div`
+export const ShareIcon = tw(BsShare)`
+  text-4xl
+  text-black
+`;
+
+export const FooterTextArea = tw.aside`
+flex
+item-center
+`;
+
+export const FooterNav = tw.nav`
 flex
 flex-row
 `;
@@ -36,7 +37,6 @@ cursor-pointer
 `;
 
 export const FooterText = tw.div`
-  text-xs
+  text-md
   text-black
-
 `;
