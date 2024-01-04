@@ -1,14 +1,6 @@
-import {
-  Copyright,
-  FooterContainer,
-  FooterLink,
-  FooterNav,
-  FooterTextArea,
-  GitHubIcon,
-  ShareIcon
-} from './index.styles';
+import * as S from './index.styles';
 
-export default function Footer() {
+const Footer = () => {
   // Web Share API 적용
   const handleShareClick = async () => {
     // TODO: 배포 후 모바일 환경에서 확인할 것.
@@ -42,44 +34,25 @@ export default function Footer() {
   };
 
   return (
-    // <FooterWrapper>
-    //   <LogoSvg className="text-sm" />
-    //   <FooterTextArea>
-    //     <FooterText>AYT Company</FooterText>
-    //     <FooterText>All content is provided for fun purposes only</FooterText>
-    //     <FooterText>Copyright © 2023 - All right reserved</FooterText>
-    //   </FooterTextArea>
-
-    //   <FooterLinkIcon>
-    //     <FooterLink
-    // href="https://github.com/rebi13/MBTI-Inside"
-    // target="_blank"
-    // rel="MBTI-Inside noreferrer"
-    //     >
-    //       <GitHubSvg />
-    //     </FooterLink>
-    //     <FooterLink onClick={() => console.log('handleShareClick')}>
-    //       <ShareSvg />
-    //     </FooterLink>
-    //   </FooterLinkIcon>
-    // </FooterWrapper>
-    <FooterContainer>
-      <FooterTextArea>
-        <Copyright>Copyright © 2024</Copyright>
-        <Copyright>All right reserved</Copyright>
-      </FooterTextArea>
-      <FooterNav>
-        <FooterLink
+    <S.FooterContainer>
+      <S.FooterTextArea>
+        <S.Copyright>Copyright © 2024</S.Copyright>
+        <S.Copyright>All right reserved</S.Copyright>
+      </S.FooterTextArea>
+      <S.FooterNav>
+        <S.FooterLink
           href="https://github.com/rebi13/MBTI-Inside"
           target="_blank"
           rel="MBTI-Inside noreferrer"
         >
-          <GitHubIcon />
-        </FooterLink>
-        <FooterLink onClick={handleShareClick}>
-          <ShareIcon />
-        </FooterLink>
-      </FooterNav>
-    </FooterContainer>
+          <S.GitHubIcon />
+        </S.FooterLink>
+        <S.FooterLink onClick={handleShareClick}>
+          <S.ShareIcon />
+        </S.FooterLink>
+      </S.FooterNav>
+    </S.FooterContainer>
   );
-}
+};
+
+export default Footer;
