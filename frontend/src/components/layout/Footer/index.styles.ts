@@ -7,6 +7,7 @@ export const FooterContainer = tw.footer`
   bg-regal-purple
   w-full
   items-center 
+  justify-between
   p-2.5
   text-neutral-content
 `;
@@ -23,6 +24,7 @@ export const ShareIcon = tw(BsShare)`
 
 export const FooterTextArea = tw.aside`
 flex
+flex-col
 item-center
 `;
 
@@ -36,7 +38,6 @@ mr-3
 cursor-pointer
 `;
 
-export const FooterText = tw.div`
-  text-md
-  text-black
-`;
+export const Copyright = tw.p`
+text-lg
+text-black`;

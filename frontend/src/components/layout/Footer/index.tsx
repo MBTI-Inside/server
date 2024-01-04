@@ -1,10 +1,8 @@
-import MainLogoSvg from '@/assets/image/mainlogo.svg?react';
-
 import {
+  Copyright,
   FooterContainer,
   FooterLink,
   FooterNav,
-  FooterText,
   FooterTextArea,
   GitHubIcon,
   ShareIcon
@@ -67,12 +65,8 @@ export default function Footer() {
     // </FooterWrapper>
     <FooterContainer>
       <FooterTextArea>
-        <MainLogoSvg />
-        <FooterText>
-          Copyright © 2024 All right reserved
-          {/* <p>Copyright © 2024</p>
-          <p>All right reserved</p> */}
-        </FooterText>
+        <Copyright>Copyright © 2024</Copyright>
+        <Copyright>All right reserved</Copyright>
       </FooterTextArea>
       <FooterNav>
         <FooterLink
