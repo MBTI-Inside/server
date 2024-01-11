@@ -16,16 +16,6 @@ bg-[#B2ACF9]
 p-5
 `;
 
-export const Character = tw.div`
-w-[430px]
-h-[342px]
-bg-main
-bg-no-repeat
-m-auto
-border-[#B2ACF9]
-border-b-4
-`;
-
 export const Title = tw.h3`
 font-bold
 text-6xl
