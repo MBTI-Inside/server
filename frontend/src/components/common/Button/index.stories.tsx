@@ -1,38 +1,52 @@
-import { StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import Button, { ButtonProps } from './index';
+import Button from './index';
 
-export default {
+const meta = {
   title: 'components/common/Button',
-  component: Button
-};
+  component: Button,
+  parameters: {
+    layout: 'centered'
+  },
+  tags: ['autodocs'],
+  argTypes: {}
+} satisfies Meta<typeof Button>;
 
-const Template: StoryFn<ButtonProps> = (args) => <Button {...args} />;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Default = Template.bind({});
-
-Default.args = {
-  type: 'button',
-  disabled: false,
-  classProp: 'btn-info btn-lg',
-  children: '버튼1',
-  onClick: (e) => {
-    console.log(e);
+export const DefaultButton: Story = {
+  args: {
+    type: 'button',
+    disabled: false,
+    classProp: 'w-80 h-14 text-lg bg-black hover:bg-gray-700 text-white',
+    children: '테스트 하러 가기',
+    onClick: (e) => {
+      console.log(e);
+    }
   }
 };
 
-export const Primary = Template.bind({});
-
-Primary.args = {
-  type: 'button',
-  disabled: false,
-  children: '버튼2'
+export const YellowButton: Story = {
+  args: {
+    type: 'button',
+    disabled: false,
+    classProp: 'w-80 h-14 text-lg bg-white hover:bg-yellow-300 text-black',
+    children: '통계 보러 가기',
+    onClick: (e) => {
+      console.log(e);
+    }
+  }
 };
 
-export const Ghost = Template.bind({});
-
-Ghost.args = {
-  type: 'button',
-  disabled: false,
-  children: '버튼3'
+export const BlueButton: Story = {
+  args: {
+    type: 'button',
+    disabled: false,
+    classProp: 'w-80 h-14 text-lg bg-blue-600 text-white hover:bg-blue-700',
+    children: '담벼락 보러 가기',
+    onClick: (e) => {
+      console.log(e);
+    }
+  }
 };
