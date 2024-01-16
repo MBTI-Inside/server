@@ -3,7 +3,7 @@ const Memo = () => {
     <>
       {/* TODO: MBTI유형 선택 버튼(클릭 시 모달) - daisyUI Custom Button, Modal */}
       {/* TODO: mbti 유형은 전역 상태 관리 */}
-      {/* TODO: 게시물 등록버튼(클릭 시 모달) - daisyUI Custom Button, Modal */}
+      {/* TODO: 게시물 등록버튼(클릭 시 페이지 이동) - daisyUI Custom Button */}
       <div>
         <span>MBTI 메모장</span>
         <button>MBTI선택</button>
