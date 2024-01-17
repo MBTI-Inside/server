@@ -25,7 +25,7 @@ export const SideBarContentContainer = tw.div`
   z-50
 `;
 
-export const SideBarContent = tw.ul`
+export const Ul = tw.ul`
   menu
   p-4
   w-80
@@ -35,25 +35,24 @@ export const SideBarContent = tw.ul`
   bg-regal-purple
 `;
 
-export const SiderBarItem = tw.li`
+export const Li = tw.li`
   mt-9
-  btn
-  btn-wide
-  w-full
   h-14
-  flex-shrink-0
+  w-full 
+  text-lg
+  btn
   rounded-full
-  shadow-lg
   border-none
+  font-bold
 `;
 
-export const SideBarFooter = tw.li`
+export const FooterLi = tw.li`
   flex
   mt-auto
   pointer-events-none
 `;
 
-export const SideBarFooterContent = tw.div`
+export const FooterDiv = tw.div`
   self-center
   text-black
 `;
