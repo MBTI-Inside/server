@@ -40,18 +40,18 @@ const SideBar = ({ children }: SideBarProps) => {
             <MainLogoSvg />
           </NavLink>
           <NavLink to="/test" onClick={handleSideBarToggle}>
-            <S.Li className="bg-black hover:bg-gray-700 text-white">
+            <S.Li className="bg-yellow-300 hover:bg-yellow-400 text-black">
               테스트 하러가기
             </S.Li>
           </NavLink>
-          <NavLink to="/stats" onClick={handleSideBarToggle}>
-            <S.Li className="bg-black hover:bg-gray-700 text-white">
-              통계 보러가기
+          <NavLink to="/board" onClick={handleSideBarToggle}>
+            <S.Li className="bg-fuchsia-400 hover:bg-fuchsia-500 text-black">
+              담벼락 보러가기
             </S.Li>
           </NavLink>
-          <NavLink to="/board" onClick={handleSideBarToggle}>
-            <S.Li className="bg-black hover:bg-gray-700 text-white">
-              담벼락 보러가기
+          <NavLink to="/stats" onClick={handleSideBarToggle}>
+            <S.Li className="bg-blue-500 hover:bg-blue-600 text-black">
+              통계 보러가기
             </S.Li>
           </NavLink>
           <S.FooterLi>
