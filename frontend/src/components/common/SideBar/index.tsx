@@ -35,22 +35,28 @@ const SideBar = ({ children }: SideBarProps) => {
           aria-label="close sidebar"
           onClick={handleSideBarToggle}
         />
-        <S.SideBarContent>
+        <S.Ul>
           <NavLink to="/" onClick={handleSideBarToggle}>
             <MainLogoSvg />
           </NavLink>
           <NavLink to="/test" onClick={handleSideBarToggle}>
-            <S.SiderBarItem>테스트 하러가기</S.SiderBarItem>
+            <S.Li className="bg-black hover:bg-gray-700 text-white">
+              테스트 하러가기
+            </S.Li>
           </NavLink>
           <NavLink to="/stats" onClick={handleSideBarToggle}>
-            <S.SiderBarItem>통계 보러가기</S.SiderBarItem>
+            <S.Li className="bg-black hover:bg-gray-700 text-white">
+              통계 보러가기
+            </S.Li>
           </NavLink>
           <NavLink to="/board" onClick={handleSideBarToggle}>
-            <S.SiderBarItem>담벼락 보러가기</S.SiderBarItem>
+            <S.Li className="bg-black hover:bg-gray-700 text-white">
+              담벼락 보러가기
+            </S.Li>
           </NavLink>
-          <S.SideBarFooter>
-            <S.SideBarFooterContent>AYT Company</S.SideBarFooterContent>
-            <S.SideBarFooterContent>
+          <S.FooterLi>
+            <S.FooterDiv>AYT Company</S.FooterDiv>
+            <S.FooterDiv>
               <a
                 href="https://github.com/rebi13/MBTI-Inside"
                 target="_blank"
@@ -58,9 +64,9 @@ const SideBar = ({ children }: SideBarProps) => {
               >
                 https://github.com/rebi13/MBTI-Inside
               </a>
-            </S.SideBarFooterContent>
-          </S.SideBarFooter>
-        </S.SideBarContent>
+            </S.FooterDiv>
+          </S.FooterLi>
+        </S.Ul>
       </S.SideBarContentContainer>
     </S.SideBarContainer>
   );
