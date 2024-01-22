@@ -54,7 +54,21 @@ const SideBar = ({ children }: SideBarProps) => {
               통계 보러가기
             </S.Li>
           </NavLink>
+          {/* TODO: 회원정보 보여주기 zustand */}
           <S.FooterLi>
+            <S.FooterDiv>
+              <S.UserContainer>
+                <S.UserProfile>
+                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </S.UserProfile>
+                <S.UserInfoContainer>
+                  {/* 닉네임 글자수 제한 : 한글 5자 영문 10자, 한영 합쳐서 10byte 제한*/}
+                  <S.UserInfo>{'ababababab'}님 환영합니다!</S.UserInfo>
+                  <S.UserInfo>최근 MBTI : {'ESTJ'}</S.UserInfo>
+                  <S.UserInfo>메모지 수 : {123} 스티커</S.UserInfo>
+                </S.UserInfoContainer>
+              </S.UserContainer>
+            </S.FooterDiv>
             <S.FooterDiv>AYT Company</S.FooterDiv>
             <S.FooterDiv>
               <a
