@@ -1,30 +1,42 @@
+import { AiOutlineComment } from 'react-icons/ai';
+import { IoHeartOutline } from 'react-icons/io5';
+
+import * as S from '@/components/pages/Memo/Card/index.styles';
+
 const Card = () => {
   return (
-    <section className="card w-80 h-60 bg-green-300 shadow-xl">
-      <section className="card-body p-6 justify-between">
-        <article className="h-32">
-          <h2 className="card-title line-clamp-1">
-            따뜻한 얼음 ❄️ 따뜻한 얼음 ❄️ 따뜻한 얼음
-          </h2>
-          <div className="pt-2 line-clamp-4">
+    <S.CardWrapper>
+      <S.CardBody>
+        <S.CardContent>
+          <S.Title>따뜻한 얼음 ❄️ 따뜻한 얼음 ❄️ 따뜻한 얼음</S.Title>
+          <S.Content>
             차가운데 따뜻하다. 속을 잘 모르겠다. 이제는 알고 싶다. 차가운데
             따뜻하다. 속을 잘 모르겠다. 이제는 알고 싶다. 차가운데 따뜻하다.
             속을 잘 모르겠다. 이제는 알고 싶다.
-          </div>
-        </article>
-        <section className="flex flex-col h-16 justify-between">
-          <div className="ml-auto">3일 전</div>
+          </S.Content>
+        </S.CardContent>
+        <S.CardInfoContainer>
+          <S.MemoDate>3일 전</S.MemoDate>
           <hr />
-          <div className="flex flex-row justify-between">
-            <div className="font-bold">ESTJ</div>
-            <div className="flex justify-between w-24">
-              <div>O 20</div>
-              <div>X 20</div>
-            </div>
-          </div>
-        </section>
-      </section>
-    </section>
+          <S.CardInfo>
+            <S.MBTI>ESTJ</S.MBTI>
+            <S.HistoryContainer>
+              <S.History>
+                <IoHeartOutline
+                  className="cursor-pointer"
+                  onClick={() => alert('좋아요 클릭 or 취소')}
+                />
+                <span>20</span>
+              </S.History>
+              <S.History>
+                <AiOutlineComment />
+                <span>20</span>
+              </S.History>
+            </S.HistoryContainer>
+          </S.CardInfo>
+        </S.CardInfoContainer>
+      </S.CardBody>
+    </S.CardWrapper>
   );
 };
 
