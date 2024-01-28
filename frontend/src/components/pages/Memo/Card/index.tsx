@@ -3,34 +3,32 @@ import { IoHeartOutline } from 'react-icons/io5';
 
 import * as S from '@/components/pages/Memo/Card/index.styles';
 
-const Card = () => {
+const Card = (params: any) => {
+  const { id, title, content, date, mbti, like_count, cmt_count } = params;
+
   return (
     <S.CardWrapper>
       <S.CardBody>
         <S.CardContent>
-          <S.Title>따뜻한 얼음 ❄️ 따뜻한 얼음 ❄️ 따뜻한 얼음</S.Title>
-          <S.Content>
-            차가운데 따뜻하다. 속을 잘 모르겠다. 이제는 알고 싶다. 차가운데
-            따뜻하다. 속을 잘 모르겠다. 이제는 알고 싶다. 차가운데 따뜻하다.
-            속을 잘 모르겠다. 이제는 알고 싶다.
-          </S.Content>
+          <S.Title>{title}</S.Title>
+          <S.Content>{content}</S.Content>
         </S.CardContent>
         <S.CardInfoContainer>
-          <S.MemoDate>3일 전</S.MemoDate>
+          <S.MemoDate>{date}</S.MemoDate>
           <hr />
           <S.CardInfo>
-            <S.MBTI>ESTJ</S.MBTI>
+            <S.MBTI>{mbti}</S.MBTI>
             <S.HistoryContainer>
               <S.History>
                 <IoHeartOutline
                   className="cursor-pointer"
                   onClick={() => alert('좋아요 클릭 or 취소')}
                 />
-                <span>20</span>
+                <span>{like_count}</span>
               </S.History>
               <S.History>
                 <AiOutlineComment />
-                <span>20</span>
+                <span>{cmt_count}</span>
               </S.History>
             </S.HistoryContainer>
           </S.CardInfo>
