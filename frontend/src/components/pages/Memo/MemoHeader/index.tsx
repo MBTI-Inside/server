@@ -7,8 +7,8 @@ import * as S from './index.styles';
 const MemoHeader = () => {
   return (
     <>
-      <S.MbtiTitle>
-        <div>
+      <S.MbtiTitleContainer>
+        <S.MbtiTitle>
           {/* TODO: 검색 데이터는 전역 상태 관리 */}
           <S.Title>MemoBTI</S.Title>
           {/* 
@@ -19,14 +19,20 @@ const MemoHeader = () => {
           <CommonButton>
             <FaPlus />
           </CommonButton>
-        </div>
-        <S.SearchBadges>
-          <div className="badge badge-secondary">ESTJ</div>
-          <div className="badge badge-secondary">ISTJ</div>
-          <div className="badge badge-secondary">제목: 안녕</div>
-          <div className="badge badge-secondary">내용: 진짜</div>
-        </S.SearchBadges>
-      </S.MbtiTitle>
+        </S.MbtiTitle>
+        <section>
+          <S.Badge>ESTJ</S.Badge>
+          <S.Badge>ISTJ</S.Badge>
+          <S.Badge>제목 : 안녕</S.Badge>
+          <S.Badge>내용 : 진짜</S.Badge>
+          <S.Badge>좋아요 : 진짜</S.Badge>
+          <S.Badge>내용 : 진짜</S.Badge>
+          <S.Badge>내용 : 진짜</S.Badge>
+          <S.Badge>내용 : 진짜</S.Badge>
+          <S.Badge>내용 : 진짜</S.Badge>
+          <S.Badge>내용 : 진짜</S.Badge>
+        </section>
+      </S.MbtiTitleContainer>
     </>
   );
 };
