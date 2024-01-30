@@ -1,15 +1,9 @@
+import MemoHeader from '@/components/pages/Memo/MemoHeader';
+
 const Memo = () => {
   return (
     <>
-      {/* TODO: MBTI유형 선택 버튼(클릭 시 모달) - daisyUI Custom Button, Modal */}
-      {/* TODO: mbti 유형은 전역 상태 관리 */}
-      {/* TODO: 게시물 등록버튼(클릭 시 페이지 이동) - daisyUI Custom Button */}
-      <div>
-        <span>MBTI 메모장</span>
-        <button>MBTI선택</button>
-        <button>등록버튼 (+)</button>
-      </div>
-      {/* TODO: 게시물 메모 - daisyUI Custom Card */}
+      <MemoHeader />
       <div>
         <h2>제목</h2>
         <h3>내용</h3>
