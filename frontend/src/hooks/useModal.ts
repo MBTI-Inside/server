@@ -8,15 +8,11 @@ export interface ModalProps {
   onClose: (result?: any) => void; // 모달이 닫힐 때 실행할 콜백 함수
 }
 
-interface ModalStackItem {
-  modal: ModalProps;
-}
-
 const useModal = () => {
-  const [modalStack, setModalStack] = useState<ModalStackItem[]>([]);
+  const [modalStack, setModalStack] = useState<ModalProps[]>([]);
 
   const openModal = (content: ModalProps) => {
-    setModalStack((prevStack) => [...prevStack, { modal: content }]);
+    setModalStack((prevStack) => [...prevStack, content]);
   };
 
   const closeModal = () => {
@@ -24,7 +20,7 @@ const useModal = () => {
   };
 
   return {
-    modals: modalStack.map((item) => item.modal),
+    modals: modalStack,
     openModal,
     closeModal
   };
