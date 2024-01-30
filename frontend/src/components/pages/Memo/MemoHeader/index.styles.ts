@@ -1,11 +1,17 @@
 import tw from 'tailwind-styled-components';
 
+export const MbtiTitleContainer = tw.div`
+  flex 
+  flex-col 
+  items-center 
+  p-3
+  justify-between
+`;
+
 export const MbtiTitle = tw.div`
- flex 
- flex-col 
- items-center 
- p-3
- justify-between
+  flex 
+  w-full 
+  justify-between
 `;
 
 export const Title = tw.div`
@@ -13,5 +19,8 @@ export const Title = tw.div`
   font-bold
 `;
 
-export const SearchBadges = tw.div`
+export const Badge = tw.div`
+  badge 
+  badge-secondary 
+  m-1
 `;
