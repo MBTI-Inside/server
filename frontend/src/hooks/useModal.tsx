@@ -49,16 +49,15 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({
       return prevStack.slice(0, -1);
     });
   };
-  console.log(modalStack);
+
   return (
     <ModalContext.Provider value={{ openModal, closeModal }}>
       {children}
       <Portal>
         {modalStack.map((modalProps, index) => {
-          console.log(modalProps);
           return (
             modalProps.opened && (
-              <div
+              <section
                 key={index}
                 style={{
                   position: 'fixed',
@@ -67,19 +66,11 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({
                   transform: 'translate(-50%, -50%)'
                 }}
               >
-                {modalProps.component}
-              </div>
-              // <section key={index}>
-              //   <div className="modal-box" key={index}>
-              //     <h3 className="font-bold text-lg">{modalProps.title}</h3>
-              //     <p className="py-4">
-              //       Press ESC key or click outside to close
-              //     </p>
-              //     <div>
-              //       <button onClick={closeModal}>close</button>
-              //     </div>
-              //   </div>
-              // </section>
+                <div className="modal-box" key={index}>
+                  <h3 className="font-bold text-lg">{modalProps.title}</h3>
+                  {modalProps.component}
+                </div>
+              </section>
             )
           );
         })}
