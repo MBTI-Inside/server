@@ -55,23 +55,32 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({
       {children}
       <Portal>
         {modalStack.map((modalProps, index) => {
+          /**
+           * 사용 예시 onClick={() => openModal(<Component />, null, 'Title')}
+           */
+          // TODO: 바깥 쪽 영역 클릭 시 모달 닫기
+          // TODO: 타이틀 옆에 x표 눌러서 모달 닫기
           return (
-            modalProps.opened && (
-              <section
+            <section
+              key={index}
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'rgba(0, 0, 0, 0.5)'
+              }}
+            >
+              <div
+                className="modal-box"
                 key={index}
-                style={{
-                  position: 'fixed',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)'
-                }}
+                style={{ width: '100%', height: '100%' }}
               >
-                <div className="modal-box" key={index}>
-                  <h3 className="font-bold text-lg">{modalProps.title}</h3>
-                  {modalProps.component}
-                </div>
-              </section>
-            )
+                <h3 className="font-bold text-lg">{modalProps.title}</h3>
+                {modalProps.component}
+              </div>
+            </section>
           );
         })}
       </Portal>
