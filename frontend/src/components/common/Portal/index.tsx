@@ -6,7 +6,7 @@ interface PortalProps {
 }
 
 const Portal: React.FC<PortalProps> = ({ children }) => {
-  const el = document.getElementById('modal');
+  const el = document.getElementById('root');
   if (!el) return null; // 대상 요소가 존재하지 않음
   return createPortal(children, el);
 };
