@@ -22,10 +22,11 @@ export const MbtiLabel = tw.label`
 `;
 
 export const Toggle = tw.div`
+    absolute
     w-1/2
     h-16
+    block
     bg-[#b2acf9]
-    absolute
     transition-all
     duration-700
     rounded-full

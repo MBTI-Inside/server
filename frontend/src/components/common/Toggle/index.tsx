@@ -19,11 +19,7 @@ const Toggle = () => {
   return (
     <>
       <S.MbtiList>
-        <S.Toggle
-          className={
-            flag ? 'left-2.5 transition-left' : 'right-2.5 transition-right'
-          }
-        />
+        <S.Toggle className={flag ? 'left-2.5' : 'right-2.5'} />
         <div className="flex-1 text-center z-10">
           <input
             type="radio"
@@ -31,7 +27,6 @@ const Toggle = () => {
             className="hidden"
             checked={flag}
             onChange={() => setFlag((flag) => !flag)}
-            // onClick={setMBTIType}
           />
           <S.MbtiLabel htmlFor={'E'} className={flag ? 'text-black' : ''}>
             {'E'}
