@@ -1,32 +1,74 @@
 import { useState } from 'react';
 
-const Toggle = () => {
-  const [isActive, setIsActive] = useState(false);
+import * as S from '@/components/common/Toggle/index.styles';
 
-  const toggleSlide = () => {
-    setIsActive(!isActive);
+const Toggle = () => {
+  const [flag, setFlag] = useState(true);
+  const setMBTIType = (e: any) => {
+    console.log(e);
+    console.log(e.target.value);
+  };
+  const activeMapper = (mbtiChar: string) => {
+    if ('E'.includes(mbtiChar)) {
+      return 'active';
+    }
+
+    return '';
   };
 
   return (
-    <div
-      className={`relative inline-block w-12 h-6 bg-gray-400 rounded-full cursor-pointer select-none ${
-        isActive ? 'bg-blue-500' : ''
-      }`}
-      onClick={toggleSlide}
-    >
-      <input
-        type="checkbox"
-        className="hidden toggle-checkbox absolute block w-18 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-      />
-      <label
-        className="toggle-label absolute left-0 w-6 h-6 bg-gray-300 rounded-full cursor-pointer"
-        style={{
-          transform: isActive ? 'translateX(100%)' : 'translateX(0)',
-          transition: 'transform 0.3s ease'
-        }}
-      />
-    </div>
+    <>
+      <S.MbtiList>
+        <S.Toggle
+          className={
+            flag ? 'left-2.5 transition-left' : 'right-2.5 transition-right'
+          }
+        />
+        <div className="flex-1 text-center z-10">
+          <input
+            type="radio"
+            id={'E'}
+            className="hidden"
+            checked={flag}
+            onChange={() => setFlag((flag) => !flag)}
+            // onClick={setMBTIType}
+          />
+          <S.MbtiLabel htmlFor={'E'} className={flag ? 'text-black' : ''}>
+            {'E'}
+          </S.MbtiLabel>
+        </div>
+        <div className="flex-1 text-center z-10">
+          <input
+            type="radio"
+            id={'I'}
+            className="hidden"
+            checked={!flag}
+            onChange={() => setFlag((flag) => !flag)}
+          />
+          <S.MbtiLabel htmlFor={'I'} className={!flag ? 'text-black' : ''}>
+            {'I'}
+          </S.MbtiLabel>
+        </div>
+      </S.MbtiList>
+    </>
   );
 };
 
 export default Toggle;
+
+// <div
+//   className={`relative inline-block w-80 h-20 bg-gray-400 rounded-full cursor-pointer select-none ${
+//     isActive ? 'bg-blue-500' : ''
+//   }`}
+//   onClick={toggleSlide}
+// >
+//   <div
+//     className="toggle absolute left-0 w-40 h-20 bg-gray-300 rounded-full cursor-pointer"
+//     style={{
+//       transform: isActive ? 'translateX(100%)' : 'translateX(0)',
+//       transition: 'transform 0.3s ease'
+//     }}
+//   >
+//     ㅇㅇ
+//   </div>
+// </div>
