@@ -1,3 +1,3 @@
-import { MBTIType } from '@/constants/MBTIType';
+import { mbtiOptions } from '@/constants/MBTIType';
 
-export { MBTIType };
+export { mbtiOptions };
