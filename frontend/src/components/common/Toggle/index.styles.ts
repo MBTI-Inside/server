@@ -8,10 +8,11 @@ export const MbtiList = tw.div`
   flex 
   items-center 
   p-4
-  h-20
+  h-24
   rounded-full 
   text-5xl 
   font-black 
+  mt-6
 `;
 
 export const MbtiLabel = tw.label`
@@ -24,7 +25,7 @@ export const MbtiLabel = tw.label`
 export const Toggle = tw.div`
     absolute
     w-1/2
-    h-16
+    h-20
     block
     bg-[#b2acf9]
     transition-all
