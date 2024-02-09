@@ -1,9 +1,11 @@
 import { mbtiOptions } from '@/constants';
 import { useReducer } from 'react';
 
-import Toggle from '@/components/common/Toggle';
+import { useModalContext } from '@/hooks/useModal';
 
-import { CommonButton } from '../Button/index.styles';
+import Button from '@/components/common/Button';
+import * as S from '@/components/common/MBTITypes/index.styles';
+import Toggle from '@/components/common/Toggle';
 
 interface ToggleState {
   [key: string]: string;
@@ -34,18 +36,20 @@ const reducer = (state: ToggleState, action: Action) => {
 };
 
 const MBTITypes = () => {
+  const { closeModal } = useModalContext();
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const doSomething = () => {
     // Do something with state
     console.log(state);
+    closeModal(state);
   };
 
   return (
-    <>
+    <S.MBTITypesContainer>
       {Object.entries(state).map(([id, selectedOption]) => {
         const { left, right } = mbtiOptions[id];
-
         return (
           <Toggle
             key={id}
@@ -61,8 +65,13 @@ const MBTITypes = () => {
           />
         );
       })}
-      <CommonButton onClick={() => doSomething()}>확인</CommonButton>
-    </>
+      <Button
+        classProp="w-80 h-14 mt-3 text-lg bg-blue-600 text-white hover:bg-blue-700"
+        onClick={() => doSomething()}
+      >
+        확인
+      </Button>
+    </S.MBTITypesContainer>
   );
 };
 
