@@ -1,10 +1,9 @@
+import { bgColors } from '@/constants';
 import { useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
 
 import Button from '@/components/common/Button';
 import * as S from '@/components/common/ColorChip/index.styles';
-
-import { bgColors } from '@/constants/bgColors';
 
 const ColorChip = () => {
   const [color, setColor] = useState('yellow');
