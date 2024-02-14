@@ -3,7 +3,8 @@ import { FaExchangeAlt } from 'react-icons/fa';
 import Button from '@/components/common/Button';
 import * as S from '@/components/pages/Memo/Note/index.styles';
 
-const Note = () => {
+const Note = (params: any) => {
+  const { id, title, content } = params;
   //   const { openModal } = useModalContext();
   // openModal(<MBTITypes />, null, 'MBTI 선택')
   return (
@@ -15,8 +16,8 @@ const Note = () => {
         </Button>
       </S.NoteHeader>
       <form className="flex-1">
-        <S.InputTitle type="text" placeholder="제목" />
-        <S.InputContent placeholder="내용" />
+        <S.InputTitle type="text" placeholder="제목" value={title} />
+        <S.InputContent placeholder="내용" value={content} />
         <Button classProp={'w-full h-14 text-lg text-white mb-6 bg-inherit'}>
           <span>배경 색상</span>
           <S.MemoColor bg="bg-[#FF9D42]"></S.MemoColor>
