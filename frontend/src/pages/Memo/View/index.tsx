@@ -1,5 +1,11 @@
+import MemoViewHeader from '@/components/pages/Memo/MemoViewHeader';
+
 const MemoView = () => {
-  return <>MemoView</>;
+  return (
+    <div>
+      <MemoViewHeader />
+    </div>
+  );
 };
 
 export default MemoView;
