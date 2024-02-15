@@ -1,6 +1,11 @@
+import { useNavigate } from 'react-router-dom';
+
+import Button from '@/components/common/Button';
 import MemoHeader from '@/components/pages/Memo/MemoHeader';
 
 const Memo = () => {
+  const nav = useNavigate();
+
   return (
     <>
       <MemoHeader />
@@ -15,6 +20,7 @@ const Memo = () => {
           <span>댓글버튼, 숫자</span>
         </div>
       </div>
+      <Button onClick={() => nav('/memo-view/3')}>상세</Button>
     </>
   );
 };
