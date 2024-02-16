@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { MemoryRouter } from 'react-router-dom';
 
 import MemoViewHeader from '@/components/pages/Memo/MemoViewHeader';
 
@@ -15,6 +16,15 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const ShortNote: Story = {
-  args: {}
+export const Default: Story = {
+  args: {},
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <div className="w-96">
+          <Story />
+        </div>
+      </MemoryRouter>
+    )
+  ]
 };
