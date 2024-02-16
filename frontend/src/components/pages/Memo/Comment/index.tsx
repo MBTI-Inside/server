@@ -1,4 +1,5 @@
 import CommentCard from '@/components/pages/Memo/Comment/CommentCard';
+import CommentPost from '@/components/pages/Memo/Comment/CommentPost';
 
 const Comment = () => {
   return (
@@ -11,10 +12,7 @@ const Comment = () => {
         </div>
       </div>
       <CommentCard />
-      <div className="flex">
-        <textarea />
-        <div>등록</div>
-      </div>
+      <CommentPost />
     </div>
   );
 };
