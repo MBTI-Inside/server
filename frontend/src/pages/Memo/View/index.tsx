@@ -1,4 +1,5 @@
 import MemoViewContent from '@/components/pages/Memo/MemoViewContent';
+import MemoViewFooter from '@/components/pages/Memo/MemoViewFooter';
 import MemoViewHeader from '@/components/pages/Memo/MemoViewHeader';
 
 const MemoView = () => {
@@ -17,6 +18,7 @@ const MemoView = () => {
     <div className="bg-green-700 flex flex-col items-center">
       <MemoViewHeader />
       <MemoViewContent data={a} />
+      <MemoViewFooter data={a} />
     </div>
   );
 };
