@@ -22,7 +22,7 @@ export const DropDownButton = tw.div`
     text-xl
 `;
 
-export const DropDownContent = tw.ul`
+export const DropDownContents = tw.ul`
     dropdown-content 
     z-[1] 
     menu 
