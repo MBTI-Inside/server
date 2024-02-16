@@ -16,6 +16,9 @@ export default {
       fontSize: {
         vxs: '0.6rem'
       },
+      lineClamp: {
+        8: '8'
+      },
       keyframes: {},
       animation: {}
     }
