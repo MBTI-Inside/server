@@ -6,8 +6,8 @@ import * as S from '@/components/pages/Memo/Comment/CommentCard/index.styles';
 
 const CommentCard = () => {
   return (
-    <div className="flex flex-col shadow-xl bg-green-200 mb-3 rounded-xl p-2">
-      <div className="flex justify-between items-center">
+    <S.CommentCardContainer>
+      <S.CommentCardUserInfo>
         <div className="flex items-center">
           <S.UserIcon />
           <span>닉네임 (작성자)</span>
@@ -27,14 +27,14 @@ const CommentCard = () => {
             </S.DropDownContents>
           </S.DropDowns>
         </div>
-      </div>
-      <div className="flex flex-col">
+      </S.CommentCardUserInfo>
+      <S.CommentCardContent>
         <div className="mb-1">
           comment comment commentcomment comment commentcomment comment
           commentcomment comment commentcomment comment comment{' '}
         </div>
         <div className="mb-1">2024-02-14 17:18</div>
-        <div className="flex justify-between items-center">
+        <S.CommentCardHistory>
           <Button classProp={'h-6 rounded-none'}>답글</Button>
           <div className="flex items-center">
             <IoHeartOutline
@@ -43,9 +43,9 @@ const CommentCard = () => {
             />
             <span>13</span>
           </div>
-        </div>
-      </div>
-    </div>
+        </S.CommentCardHistory>
+      </S.CommentCardContent>
+    </S.CommentCardContainer>
   );
 };
 
