@@ -1,19 +1,20 @@
 import CommentCard from '@/components/pages/Memo/Comment/CommentCard';
 import CommentPost from '@/components/pages/Memo/Comment/CommentPost';
+import * as S from '@/components/pages/Memo/Comment/index.styles';
 
 const Comment = () => {
   return (
-    <div className="px-6 w-full">
-      <div className="flex justify-between items-center mb-4">
+    <S.CommentContainer>
+      <S.CommentHeader>
         <div className="text-xl">댓글</div>
         <div className="flex ">
           <div className="text-bold">등록순</div>
           <div className="ml-3">최신순</div>
         </div>
-      </div>
+      </S.CommentHeader>
       <CommentCard />
       <CommentPost />
-    </div>
+    </S.CommentContainer>
   );
 };
 
