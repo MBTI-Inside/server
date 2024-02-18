@@ -1,3 +1,4 @@
+import Comment from '@/components/pages/Memo/Comment';
 import MemoViewContent from '@/components/pages/Memo/MemoViewContent';
 import MemoViewFooter from '@/components/pages/Memo/MemoViewFooter';
 import MemoViewHeader from '@/components/pages/Memo/MemoViewHeader';
@@ -19,6 +20,7 @@ const MemoView = () => {
       <MemoViewHeader />
       <MemoViewContent data={a} />
       <MemoViewFooter data={a} />
+      <Comment />
     </div>
   );
 };
