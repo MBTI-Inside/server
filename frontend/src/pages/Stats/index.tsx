@@ -27,12 +27,15 @@ const Stats = () => {
       show: false
     },
     chart: {
-      height: 350,
-      type: 'treemap'
+      type: 'treemap',
+      toolbar: {
+        show: false
+      }
     },
-    title: {
-      text: 'Distibuted Treemap (different color for each cell)',
-      align: 'center'
+    stroke: {
+      show: true,
+      width: 8,
+      colors: ['#000']
     },
     colors: [
       '#3B93A5',
@@ -62,7 +65,7 @@ const Stats = () => {
         options={options}
         series={series}
         type="treemap"
-        height={350}
+        height={400}
       />
     </>
   );
