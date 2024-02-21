@@ -67,14 +67,15 @@ const Stats = () => {
   };
 
   return (
-    <>
+    <div className="w-full flex justify-center items-center">
       <ReactApexChart
+        className="w-11/12"
         options={options}
         series={series}
         type="treemap"
         height={400}
       />
-    </>
+    </div>
   );
 };
 
