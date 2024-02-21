@@ -5,19 +5,22 @@ const Stats = () => {
   const series = [
     {
       data: [
-        { x: 'New Delhi', y: 218 },
-        { x: 'Kolkata', y: 149 },
-        { x: 'Mumbai', y: 184 },
-        { x: 'Ahmedabad', y: 55 },
-        { x: 'Bangaluru', y: 84 },
-        { x: 'Pune', y: 31 },
-        { x: 'Chennai', y: 70 },
-        { x: 'Jaipur', y: 30 },
-        { x: 'Surat', y: 44 },
-        { x: 'Hyderabad', y: 68 },
-        { x: 'Lucknow', y: 28 },
-        { x: 'Indore', y: 19 },
-        { x: 'Kanpur', y: 29 }
+        { x: 'ESTJ', y: 218 },
+        { x: 'ISFJ', y: 149 },
+        { x: 'INTP', y: 184 },
+        { x: 'ESFJ', y: 55 },
+        { x: 'ENTP', y: 84 },
+        { x: 'ESFP', y: 31 },
+        { x: 'ISFP', y: 70 },
+        { x: 'ESTP', y: 30 },
+        { x: 'ISTJ', y: 44 },
+        { x: 'INFP', y: 68 },
+        { x: 'INFJ', y: 28 },
+        { x: 'ENTJ', y: 19 },
+        { x: 'ISTP', y: 29 },
+        { x: 'INTJ', y: 13 },
+        { x: 'ENTP', y: 58 },
+        { x: 'ENFP', y: 3 }
       ]
     }
   ];
@@ -34,7 +37,7 @@ const Stats = () => {
     },
     stroke: {
       show: true,
-      width: 8,
+      width: 3,
       colors: ['#000']
     },
     colors: [
@@ -49,7 +52,11 @@ const Stats = () => {
       '#421243',
       '#7F94B0',
       '#EF6537',
-      '#C0ADDB'
+      '#C0ADDB',
+      '#C1AFB5',
+      '#AA12BB',
+      '#F8BAB5',
+      '#119BA3'
     ],
     plotOptions: {
       treemap: {
