@@ -1,7 +1,16 @@
 import { ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
+import { useNavigate } from 'react-router-dom';
+
+import { useModalContext } from '@/hooks/useModal';
+
+import Button from '@/components/common/Button';
+import MBTITypes from '@/components/common/MBTITypes';
 
 const Stats = () => {
+  const { openModal } = useModalContext();
+  const navigate = useNavigate();
+
   const series = [
     {
       data: [
@@ -67,7 +76,7 @@ const Stats = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center">
+    <div className="w-full flex flex-col justify-center items-center gap-4">
       <ReactApexChart
         className="w-11/12"
         options={options}
@@ -75,6 +84,20 @@ const Stats = () => {
         type="treemap"
         height={400}
       />
+
+      {/* TODO: 모달 닫을 때 콜백함수 추가 필요 */}
+      <Button
+        classProp="w-80 h-14 text-lg bg-blue-500 hover:bg-blue-600 text-white"
+        onClick={() => openModal(<MBTITypes />, null, 'MBTI 선택')}
+      >
+        MBTI별 통계
+      </Button>
+      <Button
+        classProp="w-80 h-14 text-lg bg-fuchsia-400 hover:bg-fuchsia-500 text-white"
+        onClick={() => navigate('/memo')}
+      >
+        메모장 보러가기
+      </Button>
     </div>
   );
 };
