@@ -1,41 +1,34 @@
-import * as S from '@/pages/Login/index.styles';
+import Character from '@/components/common/Character';
 
-import Google from '@/assets/google.png';
-import MainLogoSvg from '@/assets/image/test.svg?react';
-import Kakao from '@/assets/kakao.png';
-import Naver from '@/assets/naver.png';
+import Google from '@/assets/image/google.svg?react';
+import Kakao from '@/assets/image/kakao.svg?react';
+import Logo from '@/assets/image/logo.svg?react';
+import Naver from '@/assets/image/naver.svg?react';
 
 const Login = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-[#0272F1] pt-16">
       <div>
-        Logo
-        <MainLogoSvg />
+        <Character bgcolor="#FF42B3" gcolor="#F9BAAC" />
+        <div className="flex flex-col bg-[#FF42B3] items-center gap-2">
+          <div className="flex items-center w-5/6 py-1 justify-center gap-4 bg-[#FEE501] rounded-full shadow-lg">
+            <Kakao />
+            <span className="text-md">카카오로 함께 하기</span>
+          </div>
+          <div className="flex items-center w-5/6 py-1 justify-center gap-4 bg-[#03C75A] rounded-full shadow-lg text-white">
+            <Naver />
+            <span className="text-md">네이버로 함께 하기</span>
+          </div>
+          <div className="flex items-center w-5/6 py-1 justify-center gap-4 bg-[#FFFFFF] rounded-full shadow-lg">
+            <Google />
+            <span className="text-md">구글로 함께 하기</span>
+          </div>
+          <div className="flex items-center w-5/6 py-1 justify-center gap-4 bg-[#B2ACF9] rounded-full shadow-lg">
+            <Logo />
+            <span className="text-md">그냥 함께 하기</span>
+          </div>
+        </div>
       </div>
-      <img
-        width={60}
-        height={60}
-        src={Naver}
-        alt="Naver Login"
-        onClick={() => alert('naver')}
-      />
-      <img
-        width={60}
-        height={60}
-        src={Kakao}
-        alt="Kakao Login"
-        onClick={() => alert('kakao')}
-      />
-      <div>
-        <img
-          width={60}
-          height={60}
-          src={Google}
-          alt="google Login"
-          onClick={() => alert('google')}
-        />
-      </div>
-      <div>로그인 안해도 테스트 가능해요</div>
     </div>
   );
 };
