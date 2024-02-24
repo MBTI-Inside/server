@@ -13,19 +13,19 @@ const Login = () => {
         <div className="flex flex-col bg-[#FF42B3] items-center gap-2">
           <div className="flex items-center w-5/6 py-1 justify-center gap-4 bg-[#FEE501] rounded-full shadow-lg">
             <Kakao />
-            <span className="text-md">카카오로 함께 하기</span>
+            <span className="text-md w-32 text-center">카카오로 함께 하기</span>
           </div>
           <div className="flex items-center w-5/6 py-1 justify-center gap-4 bg-[#03C75A] rounded-full shadow-lg text-white">
             <Naver />
-            <span className="text-md">네이버로 함께 하기</span>
+            <span className="text-md w-32 text-center">네이버로 함께 하기</span>
           </div>
           <div className="flex items-center w-5/6 py-1 justify-center gap-4 bg-[#FFFFFF] rounded-full shadow-lg">
             <Google />
-            <span className="text-md">구글로 함께 하기</span>
+            <span className="text-md w-32 text-center">구글로 함께 하기</span>
           </div>
           <div className="flex items-center w-5/6 py-1 justify-center gap-4 bg-[#B2ACF9] rounded-full shadow-lg">
             <Logo />
-            <span className="text-md">그냥 함께 하기</span>
+            <span className="text-md w-32 text-center">그냥 함께 하기</span>
           </div>
         </div>
       </div>
