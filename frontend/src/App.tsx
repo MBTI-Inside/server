@@ -1,4 +1,5 @@
 import routePaths from '@/routers';
+import { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import ModalProvider from '@/hooks/useModal';
@@ -11,17 +12,19 @@ function App() {
     <>
       <BrowserRouter>
         <ModalProvider>
-          <Header />
-          <Routes>
-            {routePaths.map((route) => (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.element}
-              />
-            ))}
-          </Routes>
-          <Footer />
+          <Suspense fallback={<>loading...</>}>
+            <Header />
+            <Routes>
+              {routePaths.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={route.element}
+                />
+              ))}
+            </Routes>
+            <Footer />
+          </Suspense>
         </ModalProvider>
       </BrowserRouter>
     </>
