@@ -9,25 +9,28 @@ import Header from '@/components/layout/Header';
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
+    <BrowserRouter>
+      <div className="flex flex-col min-h-screen">
         <ModalProvider>
           <Suspense fallback={<>loading...</>}>
             <Header />
-            <Routes>
-              {routePaths.map((route) => (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={route.element}
-                />
-              ))}
-            </Routes>
+            <div className="flex-1 overflow-y-auto">
+              <Routes>
+                {routePaths.map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={route.element}
+                  />
+                ))}
+              </Routes>
+            </div>
+
             <Footer />
           </Suspense>
         </ModalProvider>
-      </BrowserRouter>
-    </>
+      </div>
+    </BrowserRouter>
   );
 }
 
