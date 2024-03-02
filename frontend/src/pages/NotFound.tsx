@@ -1,6 +1,11 @@
+import { useNavigate } from 'react-router-dom';
+
+import Button from '@/components/common/Button';
 import Character from '@/components/common/Character';
 
 export default function NotFound() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col my-5">
       <Character bgcolor="#00B26E" gcolor="#F9BAAC" />
@@ -12,11 +17,9 @@ export default function NotFound() {
             text-[#000]
             bg-[#00B26E]"
       >
-        No data
+        Not Found 😅
       </h3>
+      <Button onClick={() => navigate('/')}>홈으로</Button>
     </div>
-    // <section className="flex flex-col items-center">
-    //   <h3 className="text-2xl font-bold mb-2">NotFound😅</h3>
-    // </section>
   );
 }
