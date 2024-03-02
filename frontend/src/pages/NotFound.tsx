@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@/components/common/Button';
 import Character from '@/components/common/Character';
 
-export default function NotFound() {
+const NotFound = () => {
   const navigate = useNavigate();
 
   return (
@@ -22,4 +22,6 @@ export default function NotFound() {
       <Button onClick={() => navigate('/')}>홈으로</Button>
     </div>
   );
-}
+};
+
+export default NotFound;
