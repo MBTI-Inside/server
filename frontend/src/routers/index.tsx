@@ -59,7 +59,7 @@ const routePaths = [
     element: <Question />
   },
   {
-    path: '/notfound',
+    path: '*',
     element: <NotFound />
   }
 ];
