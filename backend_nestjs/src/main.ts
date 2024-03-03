@@ -9,10 +9,6 @@ async function bootstrap() {
     credentials: true
   });
 
-  setTimeout(() => {
-    process.exit(0);
-  }, 2000);
-
   await app.listen(process.env.PORT);
 }
 bootstrap();
