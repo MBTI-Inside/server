@@ -6,6 +6,7 @@ import { MONGO_ARE_YOU_T_DATABASE } from 'src/config/mongoose.config';
 import { BoardDomain } from 'src/board/domain/board.domain';
 import { IBoardModel } from './board.model.interface';
 import { IBoard } from 'src/board/dto/board.dto';
+import { createReadStream } from 'fs';
 
 export const MONGO_BOARD_MODEL = 'MONGO_BOARD_MODEL';
 
@@ -23,13 +24,12 @@ export class BoardModel implements IBoardModel {
 
   async findAll(): Promise<BoardDomain[]> {
     const boards: BoardDomain[] = [];
-    this.boardModel
-      .find()
-      .cursor()
-      .map(this._changeIdType)
-      .on('data', (board) => {
-        boards.push(board);
-      });
+    const boardsCursor = this.boardModel.find().lean().cursor();
+
+    for await (const board of boardsCursor) {
+      boards.push(BoardDomain.new(this._changeIdType(board)));
+    }
+
     return boards;
   }
 
