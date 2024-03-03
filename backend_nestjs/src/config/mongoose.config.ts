@@ -7,6 +7,7 @@ import { Connection, MongooseError } from 'mongoose';
 
 export const MongooseConfig: MongooseModuleAsyncOptions = {
   imports: [ConfigModule],
+  connectionName: 'are-you-t',
   useFactory: (configService: ConfigService): MongooseModuleFactoryOptions => ({
     uri:
       configService.get('MONGODB_URI') + configService.get('MONGODB_OPTIONS'),
