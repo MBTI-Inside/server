@@ -17,11 +17,12 @@ export const MongooseConfig: MongooseModuleAsyncOptions = {
     minPoolSize: 4,
     maxPoolSize: 20,
     connectionFactory: (connection: Connection) => {
-      const readyState = connection.readyState;
-
-      if (readyState === 1)
+      connection.on('connecting', () => {
+        console.log('Mongoose가 MongoDB 서버에 연결중입니다!');
+      });
+      connection.on('connected', () => {
         console.log('Mongoose가 MongoDB에 정상적으로 연결되었습니다.');
-
+      });
       connection.on('disconnecting', () => {
         console.log('Mongoose가 MongoDB와의 연결을 끊고 있습니다!');
       });
