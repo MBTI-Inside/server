@@ -1,0 +1,12 @@
+{
+  "name": "mbti-inside",
+  "version": "1.0.0",
+  "description": "README",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "docker compose -f docker-compose.local.yml up --build=${npm_config_build:-false} --detach=${npm_config_detach:-false}"
+  },
+  "author": "",
+  "license": "ISC"
+}
