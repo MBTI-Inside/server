@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  backend:
+    platform: linux/amd64
+    build:
+      context: ./
+      dockerfile: ./dev.Dockerfile
+      args:
+        TARGET: backend
+    container_name: backend
+    command: sh -c "cd backend && npm run start:debug"
+    env_file:
+      - backend/.env
+    environment:
+      TZ: Asia/Seoul
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./backend/src:/app/backend/src
+      - ./backend/tsconfig.json:/app/backend/tsconfig.json
+      - ./backend/tsconfig.build.json:/app/backend/tsconfig.build.json
+      - ./backend/package.json:/app/backend/package.json
+      - ./backend/nest-cli.json:/app/backend/nest-cli.json
+      - ./backend/.env:/app/backend/.env
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
