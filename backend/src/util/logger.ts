@@ -1,5 +1,5 @@
 import { WinstonModule } from 'nest-winston';
-import { LoggerOptions, format, transports, addColors } from 'winston';
+import { LoggerOptions, format, transports } from 'winston';
 
 const colorOptions = {
   levels: {
