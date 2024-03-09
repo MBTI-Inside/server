@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import * as S from '@/components/common/Toggle/index.styles';
 
 interface ToggleProps {
@@ -15,7 +13,7 @@ const Toggle = ({ left, right, selectedOption, onSelect }: ToggleProps) => {
   };
 
   return (
-    <>
+    <div className="w-96">
       <S.MbtiList>
         <S.Toggle
           className={selectedOption === left ? 'left-2.5' : 'right-2.5'}
@@ -51,7 +49,7 @@ const Toggle = ({ left, right, selectedOption, onSelect }: ToggleProps) => {
           </S.MbtiLabel>
         </div>
       </S.MbtiList>
-    </>
+    </div>
   );
 };
 

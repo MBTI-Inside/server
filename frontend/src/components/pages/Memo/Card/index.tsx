@@ -4,7 +4,7 @@ import { IoHeartOutline } from 'react-icons/io5';
 import * as S from '@/components/pages/Memo/Card/index.styles';
 
 const Card = (params: any) => {
-  const { id, title, content, date, mbti, like_count, cmt_count } = params;
+  const { id, title, content, date, mbti, likeCount, cmtCount } = params;
 
   return (
     <S.CardWrapper>
@@ -24,11 +24,11 @@ const Card = (params: any) => {
                   className="cursor-pointer"
                   onClick={() => alert('좋아요 클릭 or 취소')}
                 />
-                <span>{like_count}</span>
+                <span>{likeCount}</span>
               </S.History>
               <S.History>
                 <AiOutlineComment />
-                <span>{cmt_count}</span>
+                <span>{cmtCount}</span>
               </S.History>
             </S.HistoryContainer>
           </S.CardInfo>
