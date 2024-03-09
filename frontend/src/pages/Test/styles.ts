@@ -18,4 +18,7 @@ export const TestContent = tw.div`
 `;
 
 export const TestNavigation = tw.div`
+    flex
+    w-full
+    justify-around
 `;
