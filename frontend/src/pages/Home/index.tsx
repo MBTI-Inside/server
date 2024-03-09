@@ -1,11 +1,13 @@
 import { NavLink } from 'react-router-dom';
 
+import Character from '@/components/pages/Home/Character';
+
 import * as S from './index.styles';
 
 const Home = () => {
   return (
     <S.Container>
-      <S.Character />
+      <Character />
       <S.ContentWrapper>
         <S.Title>ARE YOU T?</S.Title>
         {/* TODO: 버튼 daisyUI로 공통 컴포넌트로 만들기. */}
