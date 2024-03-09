@@ -47,6 +47,6 @@ const ContentWrapper = tw.div`
   flex-1 
   overflow-y-auto
   flex
-  justify-center
+  flex-col
   items-center
 `;
