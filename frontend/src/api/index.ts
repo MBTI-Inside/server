@@ -6,7 +6,7 @@ const allowMethod: string[] = ['get', 'post', 'put', 'patch', 'delete'];
 
 // Axios 인스턴스 생성
 const apiInstance: AxiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:4000/api/v1',
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:4000/v1',
   timeout: 5000,
   withCredentials: true
 });
