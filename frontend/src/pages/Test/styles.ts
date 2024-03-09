@@ -3,6 +3,7 @@ import tw from 'tailwind-styled-components';
 export const TestContainer = tw.div`
     flex
     flex-col
+    flex-1
     justify-center
     items-center
     w-5/6
