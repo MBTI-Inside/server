@@ -20,9 +20,8 @@ resource "aws_iam_group_membership" "cicd_group_membership" {
 
 data "aws_iam_policy_document" "cicd_assume_role_policy_document" {
   statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-    # resources = [aws_iam_role.ecr_role.arn]
+    effect    = "Allow"
+    actions   = ["sts:AssumeRole"]
     resources = ["*"]
 
   }
@@ -40,6 +39,7 @@ resource "aws_iam_group_policy_attachment" "this" {
   policy_arn = aws_iam_policy.cicd_assume_role_policy.arn
 }
 
+# ecr policy document
 data "aws_iam_policy_document" "ecr_access_policy_document" {
   statement {
     effect    = "Allow"
@@ -47,6 +47,8 @@ data "aws_iam_policy_document" "ecr_access_policy_document" {
     resources = ["*"]
   }
 }
+
+# ecr policy 
 resource "aws_iam_policy" "ecr_access_policy" {
   name        = "ecr_access_policy"
   path        = "/"
@@ -54,6 +56,7 @@ resource "aws_iam_policy" "ecr_access_policy" {
   policy      = data.aws_iam_policy_document.ecr_access_policy_document.json
 }
 
+# ecr assume role policy document
 data "aws_iam_policy_document" "ecr_role_policy_document" {
   statement {
     effect  = "Allow"
@@ -65,7 +68,7 @@ data "aws_iam_policy_document" "ecr_role_policy_document" {
   }
 }
 
-# # role 생성
+# # ecr role 생성
 resource "aws_iam_role" "ecr_role" {
   name                  = "ecr_role"
   force_detach_policies = true
@@ -80,12 +83,12 @@ resource "aws_iam_policy_attachment" "ecr_role_attachment" {
 
 
 # # ecr
-# resource "aws_ecr_repository" "ecr_repository" {
-#   name                 = "cicd_repository"
-#   image_tag_mutability = "MUTABLE"
-#   force_delete         = true
-#   image_scanning_configuration {
-#     scan_on_push = true
-#   }
-# }
+resource "aws_ecr_repository" "ecr_repository" {
+  name                 = "cicd_repository"
+  image_tag_mutability = "MUTABLE"
+  force_delete         = true
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
 
