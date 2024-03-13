@@ -18,76 +18,74 @@ resource "aws_iam_group_membership" "cicd_group_membership" {
   group = aws_iam_group.cicd_group.name
 }
 
-data "aws_iam_policy_document" "assume_role" {
+data "aws_iam_policy_document" "cicd_assume_role_policy_document" {
   statement {
-    effect    = "Allow"
-    actions   = ["sts:AssumeRole"]
-    resources = ["arn:aws:ecr::*"]
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+    # resources = [aws_iam_role.ecr_role.arn]
+    resources = ["*"]
+
   }
 }
 
-resource "aws_iam_policy" "this" {
-  name        = "assume_role_policy"
+resource "aws_iam_policy" "cicd_assume_role_policy" {
+  name        = "cicd_assume_role_policy"
   path        = "/"
   description = "Allows to assume role in another AWS account"
-  policy      = data.aws_iam_policy_document.assume_role.json
+  policy      = data.aws_iam_policy_document.cicd_assume_role_policy_document.json
 }
 
 resource "aws_iam_group_policy_attachment" "this" {
   group      = aws_iam_group.cicd_group.name
-  policy_arn = aws_iam_policy.this.arn
+  policy_arn = aws_iam_policy.cicd_assume_role_policy.arn
 }
 
-# # 권한을 빌릴 수 있는 권한 정의
-# data "aws_iam_policy_document" "assume_role" {
-#   statement {
-#     effect = "Allow"
+data "aws_iam_policy_document" "ecr_access_policy_document" {
+  statement {
+    effect    = "Allow"
+    actions   = ["ecr:*"]
+    resources = ["*"]
+  }
+}
+resource "aws_iam_policy" "ecr_access_policy" {
+  name        = "ecr_access_policy"
+  path        = "/"
+  description = "Allows to access ECR"
+  policy      = data.aws_iam_policy_document.ecr_access_policy_document.json
+}
 
-#     principals {
-#       type        = "Service"
-#       identifiers = ["ec2.amazonaws.com"]
-#     }
-
-#     actions = ["sts:AssumeRole"]
-#   }
-# }
+data "aws_iam_policy_document" "ecr_role_policy_document" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["ecr.amazonaws.com"]
+    }
+  }
+}
 
 # # role 생성
-# resource "aws_iam_role" "assume_role" {
-#   name                  = "assume_role"
-#   force_detach_policies = true
-#   assume_role_policy    = data.aws_iam_policy_document.assume_role.json
-# }
+resource "aws_iam_role" "ecr_role" {
+  name                  = "ecr_role"
+  force_detach_policies = true
+  assume_role_policy    = data.aws_iam_policy_document.ecr_role_policy_document.json
+}
 
-# # ECR 접근 허용 정책 정의
-# data "aws_iam_policy_document" "ecr_policy" {
-#   statement {
-#     effect = "Allow"
+resource "aws_iam_policy_attachment" "ecr_role_attachment" {
+  name       = "ecr_role_attachment"
+  roles      = [aws_iam_role.ecr_role.name]
+  policy_arn = aws_iam_policy.ecr_access_policy.arn
+}
 
-#     actions = [
-#       "ecr:*"
-#     ]
 
-#     resources = ["*"]
+# # ecr
+# resource "aws_ecr_repository" "ecr_repository" {
+#   name                 = "cicd_repository"
+#   image_tag_mutability = "MUTABLE"
+#   force_delete         = true
+#   image_scanning_configuration {
+#     scan_on_push = true
 #   }
 # }
 
-# # ECR 접근 허용 정책 생성
-# resource "aws_iam_policy" "ecr_policy" {
-#   name   = "ecr_policy"
-#   policy = data.aws_iam_policy_document.ecr_policy.json
-# }
-
-
-# #  ecr 정책과 role 연결
-# resource "aws_iam_policy_attachment" "ecr_policy" {
-#   name       = "ecr_policy_attachment"
-#   roles      = [aws_iam_role.assume_role.name]
-#   policy_arn = aws_iam_policy.ecr_policy.arn
-# }
-
-# # ec2 instance profile 생성
-# resource "aws_iam_instance_profile" "assume_role_profile" {
-#   name = "assume_role_profile"
-#   role = aws_iam_role.assume_role.name
-# }
