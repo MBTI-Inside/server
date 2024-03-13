@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "cicd_assume_role_policy_document" {
   statement {
     effect    = "Allow"
     actions   = ["sts:AssumeRole"]
-    resources = ["*"]
+    resources = [aws_iam_role.ecr_role.arn]
 
   }
 }
@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "ecr_access_policy_document" {
   statement {
     effect    = "Allow"
     actions   = ["ecr:*"]
-    resources = ["*"]
+    resources = [aws_ecr_repository.ecr_repository.arn]
   }
 }
 
@@ -68,13 +68,15 @@ data "aws_iam_policy_document" "ecr_role_policy_document" {
   }
 }
 
-# # ecr role 생성
+# ecr role 생성
+# assume role policy는 role의 policy와 별개로 지정
 resource "aws_iam_role" "ecr_role" {
   name                  = "ecr_role"
   force_detach_policies = true
   assume_role_policy    = data.aws_iam_policy_document.ecr_role_policy_document.json
 }
 
+# ecr role과 ecr policy 연결
 resource "aws_iam_policy_attachment" "ecr_role_attachment" {
   name       = "ecr_role_attachment"
   roles      = [aws_iam_role.ecr_role.name]
@@ -82,7 +84,7 @@ resource "aws_iam_policy_attachment" "ecr_role_attachment" {
 }
 
 
-# # ecr
+# ecr
 resource "aws_ecr_repository" "ecr_repository" {
   name                 = "cicd_repository"
   image_tag_mutability = "MUTABLE"
@@ -92,3 +94,22 @@ resource "aws_ecr_repository" "ecr_repository" {
   }
 }
 
+# # ecr policy
+# data "aws_iam_policy_document" "ecr_policy_document" {
+#   statement {
+#     sid       = "cicd policy"
+#     effect    = "Allow"
+#     resources = [aws_ecr_repository.ecr_repository.arn]
+#     actions   = ["ecr:*"]
+#     principals {
+#       type        = "AWS"
+#       identifiers = [aws_iam_role.ecr_role.arn]
+#     }
+#   }
+# }
+
+# # ecr policy attachment
+# resource "aws_ecr_repository_policy" "ecr_repository_policy" {
+#   repository = aws_ecr_repository.ecr_repository.name
+#   policy     = data.aws_iam_policy_document.ecr_policy_document.json
+# }
