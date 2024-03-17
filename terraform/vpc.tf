@@ -91,3 +91,28 @@ resource "aws_route" "private_nat" {
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.natgw.id
 }
+
+# security group
+resource "aws_security_group" "backend_server_sg" {
+  name        = "backend-server-sg"
+  description = "Security Group for MBTI Backend Server"
+  vpc_id      = aws_vpc.main.id
+
+  tags = {
+    Name = "MBTI-sg"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "backend_server_sg_ingress_rule" {
+  security_group_id = aws_security_group.backend_server_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+}
+
+resource "aws_vpc_security_group_egress_rule" "backend_server_sg_ingress_rule" {
+  security_group_id = aws_security_group.backend_server_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" # semantically equivalent to all ports
+}

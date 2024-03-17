@@ -2,6 +2,7 @@ resource "aws_network_interface" "ec2_ni" {
   subnet_id   = aws_subnet.public_subnet.id
   private_ips = ["10.0.0.10"]
 
+  security_groups = [aws_security_group.backend_server_sg.id]
   tags = {
     Name = "MBTI-Network-Interface"
   }
@@ -29,10 +30,11 @@ data "aws_ami" "this" {
   }
 }
 
-resource "aws_instance" "backend-server" {
+resource "aws_instance" "backend_server" {
   ami           = data.aws_ami.this.id
   instance_type = "t3.micro"
   key_name      = var.access_key_backend_server
+
   network_interface {
     network_interface_id = aws_network_interface.ec2_ni.id
     device_index         = 0
@@ -43,10 +45,12 @@ resource "aws_instance" "backend-server" {
   }
 }
 
-resource "aws_eip" "backend-server-eip" {
+resource "aws_eip" "backend_server_eip" {
   domain = "vpc"
-
-  instance = aws_instance.backend-server.id
 }
 
+resource "aws_eip_association" "backend_server_eip_association" {
+  instance_id   = aws_instance.backend_server.id
+  allocation_id = aws_eip.backend_server_eip.id
+}
 
