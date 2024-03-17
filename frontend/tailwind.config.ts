@@ -11,11 +11,13 @@ export default {
         'regal-purple': '#B2ACF9'
       },
       backgroundImage: {
-        main: "url('./assets/image/main.svg')",
         test: "url('./assets/image/test.svg')"
       },
       fontSize: {
         vxs: '0.6rem'
+      },
+      lineClamp: {
+        8: '8'
       },
       keyframes: {},
       animation: {}
