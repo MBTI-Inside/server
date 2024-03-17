@@ -7,8 +7,11 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public_subnet" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.0.0/24"
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.0.0/24"
+  map_public_ip_on_launch = true
+
+  depends_on = [aws_internet_gateway.igw]
 
   tags = {
     Name = "MBTI-VPC-public-subnet"
