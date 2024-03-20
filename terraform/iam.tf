@@ -21,7 +21,7 @@ resource "aws_iam_group_membership" "cicd_group_membership" {
 data "aws_iam_policy_document" "cicd_assume_role_policy_document" {
   statement {
     effect    = "Allow"
-    actions   = ["sts:AssumeRole"]
+    actions   = ["sts:AssumeRole", "sts:TagSession"]
     resources = [aws_iam_role.ecr_role.arn]
 
   }
@@ -57,16 +57,35 @@ resource "aws_iam_policy" "ecr_access_policy" {
 }
 
 # ecr assume role policy document
+# Trusted relationships (Trusted entitis)
 data "aws_iam_policy_document" "ecr_role_policy_document" {
   statement {
     effect  = "Allow"
-    actions = ["sts:AssumeRole"]
+    actions = ["sts:AssumeRole", "sts:AssumeRoleWithWebIdentity", "sts:TagSession"]
     principals {
       type        = "Service"
       identifiers = ["ecr.amazonaws.com"]
     }
+
+    principals {
+      type        = "Federated"
+      identifiers = [var.github_actions_identity_provider_arn]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:sub"
+      values   = ["repo:MCprotein/infra-practice-aws:ref:refs/heads/main"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+      values   = ["sts.amazonaws.com"]
+    }
   }
 }
+
+
 
 # ecr role 생성
 # assume role policy는 role의 policy와 별개로 지정
@@ -93,6 +112,7 @@ resource "aws_ecr_repository" "ecr_repository" {
     scan_on_push = true
   }
 }
+
 
 # # ecr policy
 # data "aws_iam_policy_document" "ecr_policy_document" {

@@ -5,3 +5,7 @@ variable "aws_region" {
 variable "access_key_backend_server" {
   description = "Access Key for Backend Server"
 }
+
+variable "github_actions_identity_provider_arn" {
+  description = "Identity Provider for Github Actions"
+}
