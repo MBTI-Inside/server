@@ -80,7 +80,7 @@ data "aws_iam_policy_document" "ecr_role_policy_document" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:MCprotein/infra-practice-aws:ref:refs/heads/main"]
+      values   = ["repo:MBTI-Inside/server:ref:refs/heads/main"]
     }
 
     condition {
