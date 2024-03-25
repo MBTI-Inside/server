@@ -21,7 +21,7 @@ resource "aws_iam_group_membership" "cicd_group_membership" {
 data "aws_iam_policy_document" "cicd_assume_role_policy_document" {
   statement {
     effect    = "Allow"
-    actions   = ["sts:AssumeRole", "sts:TagSession"]
+    actions   = ["sts:AssumeRole"]
     resources = [aws_iam_role.ecr_role.arn]
 
   }
@@ -46,6 +46,12 @@ data "aws_iam_policy_document" "ecr_access_policy_document" {
     actions   = ["ecr:*"]
     resources = [aws_ecr_repository.ecr_repository.arn]
   }
+
+  statement {
+    actions = ["ecr:GetAuthorizationToken"]
+
+    resources = ["*"]
+  }
 }
 
 # ecr policy 
@@ -61,7 +67,7 @@ resource "aws_iam_policy" "ecr_access_policy" {
 data "aws_iam_policy_document" "ecr_role_policy_document" {
   statement {
     effect  = "Allow"
-    actions = ["sts:AssumeRole", "sts:AssumeRoleWithWebIdentity", "sts:TagSession"]
+    actions = ["sts:AssumeRoleWithWebIdentity", "sts:TagSession"]
     principals {
       type        = "Service"
       identifiers = ["ecr.amazonaws.com"]
