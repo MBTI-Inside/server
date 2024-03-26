@@ -38,5 +38,5 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPOSITORY }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$DATETIME_$SHA_SHORT .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$DATETIME_$SHA_SHORT
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$DATETIME-$SHA_SHORT .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$DATETIME-$SHA_SHORT
