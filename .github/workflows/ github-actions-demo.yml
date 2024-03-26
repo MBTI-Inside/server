@@ -29,7 +29,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
       - name: Set Datetime
         id: datetime
-        run: echo "DATETIME=$(date +"%Y-%m-%dT%H:%M:%S")" >> $GITHUB_ENV
+        run: echo "DATETIME=$(date +"%Y%m%dT%H%M%S")" >> $GITHUB_ENV
       - name: echo date
         run: echo "$DATETIME"
       - name: Build, tag, and push image to Amazon ECR
