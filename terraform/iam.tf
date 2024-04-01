@@ -1,3 +1,5 @@
+# User, Group
+# ------------------------------------------------------------------
 resource "aws_iam_user" "mbti_cicd_user" {
   name = "mbti_cicd"
 }
@@ -18,15 +20,17 @@ resource "aws_iam_group_membership" "cicd_group_membership" {
   group = aws_iam_group.cicd_group.name
 }
 
+# group에서 사용할 assume role policy document
 data "aws_iam_policy_document" "cicd_assume_role_policy_document" {
   statement {
     effect    = "Allow"
     actions   = ["sts:AssumeRole"]
-    resources = [aws_iam_role.ecr_role.arn]
+    resources = [aws_iam_role.ecr_role.arn, aws_iam_role.ec2_role.arn]
 
   }
 }
 
+# group에서 사용할 assume role policy
 resource "aws_iam_policy" "cicd_assume_role_policy" {
   name        = "cicd_assume_role_policy"
   path        = "/"
@@ -34,12 +38,17 @@ resource "aws_iam_policy" "cicd_assume_role_policy" {
   policy      = data.aws_iam_policy_document.cicd_assume_role_policy_document.json
 }
 
+# group에 assume role policy 연결
 resource "aws_iam_group_policy_attachment" "this" {
   group      = aws_iam_group.cicd_group.name
   policy_arn = aws_iam_policy.cicd_assume_role_policy.arn
 }
 
-# ecr policy document
+# ------------------------------------------------------------------
+# ECR Role
+# ------------------------------------------------------------------
+
+# ecr 권한 설정 document
 data "aws_iam_policy_document" "ecr_access_policy_document" {
   statement {
     effect = "Allow"
@@ -58,7 +67,7 @@ data "aws_iam_policy_document" "ecr_access_policy_document" {
   }
 }
 
-# ecr policy 
+# ecr 권한 설정
 resource "aws_iam_policy" "ecr_access_policy" {
   name        = "ecr_access_policy"
   path        = "/"
@@ -66,7 +75,7 @@ resource "aws_iam_policy" "ecr_access_policy" {
   policy      = data.aws_iam_policy_document.ecr_access_policy_document.json
 }
 
-# ecr assume role policy document
+# ecr에 접근권한이 있는 role 생성 (신뢰관계 포함)
 # Trusted relationships (Trusted entitis)
 data "aws_iam_policy_document" "ecr_role_policy_document" {
   statement {
@@ -97,22 +106,24 @@ data "aws_iam_policy_document" "ecr_role_policy_document" {
 
 
 
-# ecr role 생성
-# assume role policy는 role의 policy와 별개로 지정
+# ecr에 접근권한이 있는 role 생성
+# assume role policy는 role의 권한 정책과 별개로 지정
 resource "aws_iam_role" "ecr_role" {
   name                  = "ecr_role"
   force_detach_policies = true
   assume_role_policy    = data.aws_iam_policy_document.ecr_role_policy_document.json
 }
 
-# ecr role과 ecr policy 연결
+# ecr role과 ecr 권한 정책 연결
 resource "aws_iam_policy_attachment" "ecr_role_attachment" {
   name       = "ecr_role_attachment"
   roles      = [aws_iam_role.ecr_role.name]
   policy_arn = aws_iam_policy.ecr_access_policy.arn
 }
 
-
+# ------------------------------------------------------------------
+# ECR
+# ------------------------------------------------------------------
 # ecr
 resource "aws_ecr_repository" "ecr_repository" {
   name                 = "cicd_repository"
@@ -122,7 +133,6 @@ resource "aws_ecr_repository" "ecr_repository" {
     scan_on_push = true
   }
 }
-
 
 # # ecr policy
 # data "aws_iam_policy_document" "ecr_policy_document" {
@@ -143,3 +153,55 @@ resource "aws_ecr_repository" "ecr_repository" {
 #   repository = aws_ecr_repository.ecr_repository.name
 #   policy     = data.aws_iam_policy_document.ecr_policy_document.json
 # }
+
+
+# ------------------------------------------------------------------
+# EC2
+# ------------------------------------------------------------------
+
+data "aws_iam_policy_document" "ec2_access_policy_document" {
+  statement {
+    effect    = "Allow"
+    actions   = ["ec2:*"]
+    resources = [aws_instance.backend_server.arn]
+  }
+
+  depends_on = [aws_instance.backend_server]
+}
+
+resource "aws_iam_policy" "ec2_access_policy" {
+  name        = "ec2_access_policy"
+  path        = "/"
+  description = "Allows to access EC2"
+  policy      = data.aws_iam_policy_document.ec2_access_policy_document.json
+}
+
+data "aws_iam_policy_document" "ec2_access_role_policy" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "ec2_role" {
+  name                  = "ec2_role"
+  force_detach_policies = true
+  assume_role_policy    = data.aws_iam_policy_document.ec2_access_role_policy.json
+}
+
+resource "aws_iam_policy_attachment" "ec2_role_attachment" {
+  name       = "ec2_role_attachment"
+  roles      = [aws_iam_role.ec2_role.name]
+  policy_arn = aws_iam_policy.ec2_access_policy.arn
+}
+
+resource "aws_iam_instance_profile" "ec2_role_profile" {
+  name_prefix = "ec2-role-profile"
+  path        = "/"
+  role        = aws_iam_role.ec2_role.name
+}
