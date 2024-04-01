@@ -42,8 +42,12 @@ resource "aws_iam_group_policy_attachment" "this" {
 # ecr policy document
 data "aws_iam_policy_document" "ecr_access_policy_document" {
   statement {
-    effect    = "Allow"
-    actions   = ["ecr:*"]
+    effect = "Allow"
+    actions = ["ecr:BatchCheckLayerAvailability",
+      "ecr:CompleteLayerUpload",
+      "ecr:InitiateLayerUpload",
+      "ecr:PutImage",
+    "ecr:UploadLayerPart"]
     resources = [aws_ecr_repository.ecr_repository.arn]
   }
 
