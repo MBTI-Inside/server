@@ -1,0 +1,41 @@
+name: Deploy to ECS
+
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: 'ECR Image URI'
+        required: true
+
+env:
+  ECS_CLUSTER: mbti-ecs-cluster
+  ECS_SERVICE: mbti_ecs_service_backend_server
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_CICD_ROLE_ARN }}
+          role-session-name: GitHubActions
+          aws-region: ap-northeast-2
+      - name: Render Amazon ECS task definition
+        id: render-task-definition
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: MBTI_BACKEND_SERVER
+          image: ${{ github.event.inputs.image }}
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.render-web-container.outputs.task-definition }}
+          service: ${{env.ECS_SERVICE}}
+          cluster: ${{env.ECS_CLUSTER}}
+          wait-for-service-stability: true

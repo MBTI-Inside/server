@@ -9,3 +9,7 @@ variable "access_key_backend_server" {
 variable "github_actions_identity_provider_arn" {
   description = "Identity Provider for Github Actions"
 }
+
+variable "ecs_image_tag" {
+  description = "temp tag for ecs image"
+}
