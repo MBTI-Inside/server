@@ -111,6 +111,30 @@ resource "aws_vpc_security_group_ingress_rule" "backend_server_sg_ingress_rule" 
   to_port           = 22
 }
 
+resource "aws_vpc_security_group_ingress_rule" "backend_server_sg_ingress_rule_tcp" {
+  security_group_id = aws_security_group.backend_server_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+}
+
+resource "aws_vpc_security_group_ingress_rule" "backend_server_sg_ingress_rule_tcp2" {
+  security_group_id = aws_security_group.backend_server_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 4000
+}
+
+resource "aws_vpc_security_group_ingress_rule" "backend_server_sg_ingress_rule_tcp3" {
+  security_group_id = aws_security_group.backend_server_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 4000
+  ip_protocol       = "tcp"
+  to_port           = 4000
+}
+
 resource "aws_vpc_security_group_egress_rule" "backend_server_sg_ingress_rule" {
   security_group_id = aws_security_group.backend_server_sg.id
   cidr_ipv4         = "0.0.0.0/0"

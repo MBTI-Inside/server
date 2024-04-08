@@ -54,3 +54,31 @@ resource "aws_eip_association" "backend_server_eip_association" {
   allocation_id = aws_eip.backend_server_eip.id
 }
 
+resource "aws_launch_template" "ecs_launch_template" {
+  name_prefix   = "ecs-template"
+  image_id      = "ami-062c116e449466e7f"
+  instance_type = "t3.micro"
+
+  key_name = var.access_key_backend_server
+
+  iam_instance_profile {
+    name = "ecsInstanceRole"
+  }
+
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size = 30
+      volume_type = "gp2"
+    }
+  }
+
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "MBTI-ECS-Instance"
+    }
+  }
+
+  user_data = filebase64("userdata.sh")
+}

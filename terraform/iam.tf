@@ -159,22 +159,22 @@ resource "aws_ecr_repository" "ecr_repository" {
 # EC2
 # ------------------------------------------------------------------
 
-data "aws_iam_policy_document" "ec2_access_policy_document" {
-  statement {
-    effect    = "Allow"
-    actions   = ["ec2:*"]
-    resources = [aws_instance.backend_server.arn]
-  }
+# data "aws_iam_policy_document" "ec2_access_policy_document" {
+#   statement {
+#     effect    = "Allow"
+#     actions   = ["ec2:*"]
+#     resources = [aws_instance.backend_server.arn]
+#   }
 
-  depends_on = [aws_instance.backend_server]
-}
+#   depends_on = [aws_instance.backend_server]
+# }
 
-resource "aws_iam_policy" "ec2_access_policy" {
-  name        = "ec2_access_policy"
-  path        = "/"
-  description = "Allows to access EC2"
-  policy      = data.aws_iam_policy_document.ec2_access_policy_document.json
-}
+# resource "aws_iam_policy" "ec2_access_policy" {
+#   name        = "ec2_access_policy"
+#   path        = "/"
+#   description = "Allows to access EC2"
+#   policy      = data.aws_iam_policy_document.ec2_access_policy_document.json
+# }
 
 data "aws_iam_policy_document" "ec2_access_role_policy" {
   statement {
@@ -183,7 +183,7 @@ data "aws_iam_policy_document" "ec2_access_role_policy" {
 
     principals {
       type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
+      identifiers = ["ec2.amazonaws.com", "ecs.amazonaws.com"]
     }
   }
 }
@@ -195,15 +195,15 @@ resource "aws_iam_role" "ec2_role" {
 }
 
 resource "aws_iam_policy_attachment" "ec2_role_attachment" {
-  name       = "ec2_role_attachment"
-  roles      = [aws_iam_role.ec2_role.name]
-  policy_arn = aws_iam_policy.ec2_access_policy.arn
+  name  = "ec2_role_attachment"
+  roles = [aws_iam_role.ec2_role.name]
+  # policy_arn = aws_iam_policy.ec2_access_policy.arn
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
 }
 
 resource "aws_iam_instance_profile" "ec2_role_profile" {
-  name_prefix = "ec2-role-profile"
-  path        = "/"
-  role        = aws_iam_role.ec2_role.name
+  name = "ec2-instance-role-profile"
+  role = aws_iam_role.ec2_role.name
 }
 
 
