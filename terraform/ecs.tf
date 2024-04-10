@@ -37,17 +37,16 @@ resource "aws_ecs_task_definition" "mbti_backend_server" {
   family             = "mbti-backend-server"
   network_mode       = "awsvpc"
   execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
-  # task_role_arn = aws_iam_role.ecs_task_iam_role.arn
   container_definitions = jsonencode([
     {
       name      = "mbti-backend-server"
       image     = var.ecs_image_tag
-      cpu       = 1000
-      memory    = 1024
+      cpu       = 256
+      memory    = 512
       essential = true
       portMappings = [
         {
-          containerPort = 4000
+          containerPort = 80
           hostPort      = 80
           protocol      = "tcp"
         }
@@ -69,12 +68,15 @@ resource "aws_ecs_service" "mbti_backend_server" {
   name            = "mbti_ecs_service_backend_server"
   cluster         = aws_ecs_cluster.this.id
   task_definition = aws_ecs_task_definition.mbti_backend_server.arn
-  # iam_role        = aws_iam_role.ecs_service_role.arn
+
   desired_count = 2
   network_configuration {
-    subnets         = [aws_subnet.public_subnet.id]
+    subnets         = [aws_subnet.public_subnet.id, aws_subnet.public_subnet2.id]
     security_groups = [aws_security_group.backend_server_sg.id]
   }
+
+  force_new_deployment = true
+
   deployment_circuit_breaker {
     enable   = true
     rollback = true
@@ -90,7 +92,7 @@ resource "aws_ecs_service" "mbti_backend_server" {
     field = "attribute:ecs.availability-zone"
   }
 
-  force_new_deployment = true
+
   triggers = {
     redeployment = plantimestamp()
   }
@@ -113,17 +115,8 @@ resource "aws_ecs_service" "mbti_backend_server" {
   load_balancer {
     target_group_arn = aws_lb_target_group.ecs_tg.arn
     container_name   = "mbti-backend-server"
-    container_port   = 4000
+    container_port   = 80
   }
 
   depends_on = [aws_autoscaling_group.ecs_asg]
 }
-
-# resource "aws_lb_target_group" "mbti_alb" {
-#   name                 = "mbti-alb"
-#   target_type          = "alb"
-#   port                 = 80
-#   protocol             = "TCP"
-#   vpc_id               = aws_vpc.main.id
-#   deregistration_delay = 120
-# }

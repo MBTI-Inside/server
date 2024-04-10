@@ -1,13 +1,3 @@
-resource "aws_network_interface" "ec2_ni" {
-  subnet_id   = aws_subnet.public_subnet.id
-  private_ips = ["10.0.0.10"]
-
-  security_groups = [aws_security_group.backend_server_sg.id]
-  tags = {
-    Name = "MBTI-Network-Interface"
-  }
-}
-
 data "aws_ami" "this" {
   most_recent = true
   owners      = ["amazon"]
@@ -30,39 +20,16 @@ data "aws_ami" "this" {
   }
 }
 
-resource "aws_instance" "backend_server" {
-  ami           = data.aws_ami.this.id
-  instance_type = "t3.micro"
-  key_name      = var.access_key_backend_server
-
-  network_interface {
-    network_interface_id = aws_network_interface.ec2_ni.id
-    device_index         = 0
-  }
-
-  tags = {
-    Name = "MBTI-Backend-Server"
-  }
-}
-
-resource "aws_eip" "backend_server_eip" {
-  domain = "vpc"
-}
-
-resource "aws_eip_association" "backend_server_eip_association" {
-  instance_id   = aws_instance.backend_server.id
-  allocation_id = aws_eip.backend_server_eip.id
-}
-
 resource "aws_launch_template" "ecs_launch_template" {
   name_prefix   = "ecs-template"
-  image_id      = "ami-062c116e449466e7f"
+  image_id      = data.aws_ami.this.id
   instance_type = "t3.micro"
 
-  key_name = var.access_key_backend_server
+  key_name               = var.access_key_backend_server
+  vpc_security_group_ids = [aws_security_group.backend_server_sg.id]
 
   iam_instance_profile {
-    name = "ecsInstanceRole"
+    name = aws_iam_instance_profile.ec2_role_profile.name
   }
 
   block_device_mappings {
@@ -80,5 +47,5 @@ resource "aws_launch_template" "ecs_launch_template" {
     }
   }
 
-  user_data = filebase64("userdata.sh")
+  user_data = filebase64("${path.module}/userdata.sh")
 }

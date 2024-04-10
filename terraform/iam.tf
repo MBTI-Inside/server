@@ -134,47 +134,11 @@ resource "aws_ecr_repository" "ecr_repository" {
   }
 }
 
-# # ecr policy
-# data "aws_iam_policy_document" "ecr_policy_document" {
-#   statement {
-#     sid       = "cicd policy"
-#     effect    = "Allow"
-#     resources = [aws_ecr_repository.ecr_repository.arn]
-#     actions   = ["ecr:*"]
-#     principals {
-#       type        = "AWS"
-#       identifiers = [aws_iam_role.ecr_role.arn]
-#     }
-#   }
-# }
-
-# # ecr policy attachment
-# resource "aws_ecr_repository_policy" "ecr_repository_policy" {
-#   repository = aws_ecr_repository.ecr_repository.name
-#   policy     = data.aws_iam_policy_document.ecr_policy_document.json
-# }
-
-
 # ------------------------------------------------------------------
 # EC2
 # ------------------------------------------------------------------
 
-# data "aws_iam_policy_document" "ec2_access_policy_document" {
-#   statement {
-#     effect    = "Allow"
-#     actions   = ["ec2:*"]
-#     resources = [aws_instance.backend_server.arn]
-#   }
 
-#   depends_on = [aws_instance.backend_server]
-# }
-
-# resource "aws_iam_policy" "ec2_access_policy" {
-#   name        = "ec2_access_policy"
-#   path        = "/"
-#   description = "Allows to access EC2"
-#   policy      = data.aws_iam_policy_document.ec2_access_policy_document.json
-# }
 
 data "aws_iam_policy_document" "ec2_access_role_policy" {
   statement {
@@ -188,17 +152,61 @@ data "aws_iam_policy_document" "ec2_access_role_policy" {
   }
 }
 
+
+resource "aws_iam_policy_attachment" "ec2_role_attachment" {
+  name       = "ec2_role_attachment"
+  roles      = [aws_iam_role.ec2_role.name]
+  policy_arn = aws_iam_policy.ec2_access_policy.arn
+}
+
+
+data "aws_iam_policy_document" "ec2_access_policy_document" {
+  statement {
+    effect = "Allow"
+    actions = ["ec2:DescribeTags",
+      "ecs:CreateCluster",
+      "ecs:DeregisterContainerInstance",
+      "ecs:DiscoverPollEndpoint",
+      "ecs:Poll",
+      "ecs:RegisterContainerInstance",
+      "ecs:StartTelemetrySession",
+      "ecs:UpdateContainerInstancesState",
+      "ecs:Submit*",
+      "ecr:GetAuthorizationToken",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchGetImage",
+      "logs:CreateLogStream",
+    "logs:PutLogEvents"]
+    resources = ["*"]
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = ["ecs:TagResource"]
+    resources = ["*"]
+    condition {
+      test     = "StringEquals"
+      variable = "ecs:CreateAction"
+      values = ["CreateCluster",
+      "RegisterContainerInstance"]
+    }
+  }
+
+
+}
+
+resource "aws_iam_policy" "ec2_access_policy" {
+  name        = "ec2_access_policy"
+  path        = "/"
+  description = "Allows to access EC2"
+  policy      = data.aws_iam_policy_document.ec2_access_policy_document.json
+}
+
 resource "aws_iam_role" "ec2_role" {
   name                  = "ec2_role"
   force_detach_policies = true
   assume_role_policy    = data.aws_iam_policy_document.ec2_access_role_policy.json
-}
-
-resource "aws_iam_policy_attachment" "ec2_role_attachment" {
-  name  = "ec2_role_attachment"
-  roles = [aws_iam_role.ec2_role.name]
-  # policy_arn = aws_iam_policy.ec2_access_policy.arn
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
 }
 
 resource "aws_iam_instance_profile" "ec2_role_profile" {
