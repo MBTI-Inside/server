@@ -40,9 +40,9 @@ resource "aws_ecs_task_definition" "mbti_backend_server" {
   container_definitions = jsonencode([
     {
       name      = "mbti-backend-server"
-      image     = var.ecs_image_tag
-      cpu       = 256
-      memory    = 512
+      image     = "public.ecr.aws/f9n5f1l7/dgs:latest"
+      cpu       = 1000
+      memory    = 1024
       essential = true
       portMappings = [
         {
@@ -116,6 +116,10 @@ resource "aws_ecs_service" "mbti_backend_server" {
     target_group_arn = aws_lb_target_group.ecs_tg.arn
     container_name   = "mbti-backend-server"
     container_port   = 80
+  }
+
+  timeouts {
+    delete = "30m"
   }
 
   depends_on = [aws_autoscaling_group.ecs_asg]

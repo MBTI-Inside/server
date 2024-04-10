@@ -9,9 +9,14 @@ resource "aws_autoscaling_group" "ecs_asg" {
     version = "$Latest"
   }
 
+  timeouts {
+    delete = "30m"
+  }
+
   tag {
     key                 = "AmazonECSManaged"
     value               = true
     propagate_at_launch = true
   }
+
 }
