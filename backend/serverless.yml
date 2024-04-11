@@ -6,14 +6,24 @@ plugins:
 provider:
   name: aws
   runtime: nodejs20.x
+  region: ap-northeast-2
+  stage: ${opt:stage, 'dev'}
+  ecr:
+    images:
+      cicd_repository:
+        platform: linux/amd64
+        path: ./
 
 functions:
-  main:
-    handler: dist/main.handler
+  api:
+    architecture: arm64
+    image:
+      name: mbti-backend
+      command:
+        - dist/main.handler
+      entryPoint:
+        - '/main-entrypoint.sh'
     events:
       - http:
-          method: ANY
-          path: /
-      - http:
-          method: ANY
-          path: '{proxy+}'
+          method: any
+          path: /{any+}

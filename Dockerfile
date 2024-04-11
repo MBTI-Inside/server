@@ -13,5 +13,5 @@ WORKDIR /app
 COPY --from=build_backend /app/backend/dist /app/backend/dist
 COPY --from=build_backend /app/backend/node_modules /app/backend/node_modules
 
-CMD node backend/dist/main.js
+CMD ["dist/main.handler"]
 
