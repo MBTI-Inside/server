@@ -134,11 +134,27 @@ resource "aws_iam_role" "lambda_role" {
 data "aws_iam_policy_document" "lambda_role_policy_document" {
   statement {
     effect  = "Allow"
-    actions = ["sts:AssumeRole"]
+    actions = ["sts:AssumeRole", "sts:AssumeRoleWithWebIdentity"]
 
     principals {
       type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
+    }
+
+    principals {
+      type        = "Federated"
+      identifiers = [var.github_actions_identity_provider_arn]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:sub"
+      values   = ["repo:MBTI-Inside/server:*"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+      values   = ["sts.amazonaws.com"]
     }
   }
 }
