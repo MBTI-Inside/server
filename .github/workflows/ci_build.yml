@@ -10,6 +10,14 @@ on:
 permissions:
   id-token: write
   contents: read
+
+env:
+  MONGODB_URI: ${{secrets.MONGODB_URI}}
+  MONGODB_DATABASE: ${{secrets.MONGODB_DATABASE}}
+  MONGODB_OPTIONS: ${{secrets.MONGODB_OPTIONS}}
+  MONGODB_USERNAME: ${{secrets.MONGODB_USERNAME}}
+  MONGODB_PASSWORD: ${{secrets.MONGODB_PASSWORD}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,6 +38,13 @@ jobs:
       - name: Set Datetime
         id: datetime
         run: echo "DATETIME=$(date +"%Y%m%dT%H%M%S")" >> $GITHUB_ENV
+      - name: Create .env
+        run: |
+          echo "MONGODB_URI=$MONGODB_URI" >> .env
+          echo "MONGODB_DATABASE=$MONGODB_DATABASE" >> .env
+          echo "MONGODB_OPTIONS=$MONGODB_OPTIONS" >> .env
+          echo "MONGODB_USERNAME=$MONGODB_USERNAME" >> .env
+          echo "MONGODB_PASSWORD=$MONGODB_PASSWORD" >> .env
       - name: Set Image tag
         id: image-tag
         run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV

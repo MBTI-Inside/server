@@ -79,7 +79,14 @@ resource "aws_vpc_security_group_ingress_rule" "backend_server_sg_ingress_rule_t
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
+}
 
+resource "aws_vpc_security_group_ingress_rule" "backend_server_sg_ingress_rule_mongo" {
+  security_group_id = aws_security_group.backend_server_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 27017
+  ip_protocol       = "tcp"
+  to_port           = 27017
 }
 
 resource "aws_vpc_security_group_egress_rule" "backend_server_sg_ingress_rule" {
