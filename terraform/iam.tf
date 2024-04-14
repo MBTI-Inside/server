@@ -146,7 +146,7 @@ data "aws_iam_policy_document" "lambda_role_policy_document" {
       identifiers = [var.github_actions_identity_provider_arn]
     }
     condition {
-      test     = "StringEquals"
+      test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values   = ["repo:MBTI-Inside/server:*"]
     }
