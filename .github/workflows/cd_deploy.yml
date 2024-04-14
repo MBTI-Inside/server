@@ -24,3 +24,4 @@ jobs:
           description: 'Deploy from GitHub Actions'
           dry_run: true
           image_uri: ${{ github.event.inputs.image }}
+          function_name: mbti_backend
