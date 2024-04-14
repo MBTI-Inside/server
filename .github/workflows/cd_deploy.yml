@@ -18,7 +18,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_CICD_ROLE_ARN }}
+          role-to-assume: ${{ secrets.AWS_LAMBDA_ROLE_ARN }}
           role-session-name: GitHubActions
           aws-region: ap-northeast-2
       - name: AWS Lambda Deploy
