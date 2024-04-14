@@ -158,8 +158,20 @@ resource "aws_iam_policy" "lambda_access_policy" {
 
 data "aws_iam_policy_document" "lambda_access_policy_document" {
   statement {
-    effect    = "Allow"
-    actions   = ["lambda:*", "ec2:CreateNetworkInterface", "ec2:DescribeNetworkInterfaces", "ec2:DescribeSubnets", "ec2:DeleteNetworkInterface", "ec2:AssignPrivateIpAddresses", "ec2:UnassignPrivateIpAddresses", "ec2:DescribeSecurityGroups", "ec2:DescribeSubnets", "ec2:DescribeVpcs"]
+    effect = "Allow"
+    actions = ["lambda:*",
+      "ec2:CreateNetworkInterface",
+      "ec2:DescribeNetworkInterfaces",
+      "ec2:DescribeSubnets",
+      "ec2:DeleteNetworkInterface",
+      "ec2:AssignPrivateIpAddresses",
+      "ec2:UnassignPrivateIpAddresses",
+      "ec2:DescribeSecurityGroups",
+      "ec2:DescribeSubnets",
+      "ec2:DescribeVpcs",
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+    "logs:PutLogEvents"]
     resources = ["*"]
   }
 }
