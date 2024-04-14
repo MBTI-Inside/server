@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       image:
-        description: 'ECR Image URI'
+        description: 'ECR Image Tag'
         required: true
 permissions:
   id-token: write
@@ -23,5 +23,5 @@ jobs:
           aws_region: ap-northeast-2
           description: 'Deploy from GitHub Actions'
           dry_run: true
-          image_uri: ${{ github.event.inputs.image }}
+          image_uri: ${{secrets.AWS_ECR_REPOSITORY_URL}}:${{ github.event.inputs.image }}
           function_name: mbti_backend
