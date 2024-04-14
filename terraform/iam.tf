@@ -134,7 +134,7 @@ resource "aws_iam_role" "lambda_role" {
 data "aws_iam_policy_document" "lambda_role_policy_document" {
   statement {
     effect  = "Allow"
-    actions = ["sts:AssumeRole", "sts:AssumeRoleWithWebIdentity"]
+    actions = ["sts:AssumeRole", "sts:AssumeRoleWithWebIdentity", "sts:TagSession"]
 
     principals {
       type        = "Service"
