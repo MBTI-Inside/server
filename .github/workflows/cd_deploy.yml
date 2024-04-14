@@ -15,12 +15,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_CICD_ROLE_ARN }}
+          role-session-name: GitHubActions
+          aws-region: ap-northeast-2
       - name: AWS Lambda Deploy
         uses: appleboy/lambda-action@master
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ap-northeast-2
+          # aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          # aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          # aws_region: ap-northeast-2
           description: 'Deploy from GitHub Actions'
           dry_run: true
           image_uri: ${{secrets.AWS_ECR_REPOSITORY_URL}}:${{ github.event.inputs.image }}
