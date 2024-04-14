@@ -2,7 +2,7 @@ resource "aws_lambda_function" "test_lambda" {
   function_name = "mbti_backend"
   package_type  = "Image"
   role          = aws_iam_role.lambda_role.arn
-  image_uri     = "013373444325.dkr.ecr.ap-northeast-2.amazonaws.com/cicd_repository:20240414T131632-705b850"
+  image_uri     = "013373444325.dkr.ecr.ap-northeast-2.amazonaws.com/cicd_repository:20240414T140835-c982338"
   memory_size   = "512"
   timeout       = "10"
 

@@ -10,8 +10,9 @@ FROM public.ecr.aws/lambda/nodejs:20 AS deploy
 
 WORKDIR /app
 
-COPY --from=build_backend /app/backend/dist /app/backend/dist
-COPY --from=build_backend /app/backend/node_modules /app/backend/node_modules
+COPY --from=build_backend /app/backend/dist ${LAMBDA_TASK_ROOT}
+COPY --from=build_backend /app/backend/node_modules ${LAMBDA_TASK_ROOT}/node_modules
 
-CMD ["backend/dist/lambda.handler"]
+WORKDIR ${LAMBDA_TASK_ROOT}
+CMD ["lambda.handler"]
 
