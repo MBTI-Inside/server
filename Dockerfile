@@ -4,8 +4,6 @@ WORKDIR /app/backend
 
 COPY ./backend /app/backend
 
-RUN ECHO "ls -al"
-
 RUN npm ci --slient && npm run build
 
 FROM public.ecr.aws/lambda/nodejs:20 AS deploy

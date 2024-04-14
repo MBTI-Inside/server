@@ -1,4 +1,4 @@
-name: Deploy to ECS
+name: Deploy to Lambda
 
 on:
   workflow_dispatch:
@@ -6,36 +6,21 @@ on:
       image:
         description: 'ECR Image URI'
         required: true
-
-env:
-  ECS_CLUSTER: mbti-ecs-cluster
-  ECS_SERVICE: mbti_ecs_service_backend_server
+permissions:
+  id-token: write
+  contents: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
+      - name: AWS Lambda Deploy
+        uses: appleboy/lambda-action@master
         with:
-          role-to-assume: ${{ secrets.AWS_CICD_ROLE_ARN }}
-          role-session-name: GitHubActions
-          aws-region: ap-northeast-2
-      - name: Render Amazon ECS task definition
-        id: render-task-definition
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: task-definition.json
-          container-name: MBTI_BACKEND_SERVER
-          image: ${{ github.event.inputs.image }}
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.render-web-container.outputs.task-definition }}
-          service: ${{env.ECS_SERVICE}}
-          cluster: ${{env.ECS_CLUSTER}}
-          wait-for-service-stability: true
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ap-northeast-2
+          description: 'Deploy from GitHub Actions'
+          dry_run: true
+          image_uri: ${{ github.event.inputs.image }}
