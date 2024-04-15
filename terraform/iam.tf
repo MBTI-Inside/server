@@ -134,7 +134,7 @@ resource "aws_iam_role" "lambda_role" {
 data "aws_iam_policy_document" "lambda_role_policy_document" {
   statement {
     effect  = "Allow"
-    actions = ["sts:AssumeRoleWithWebIdentity", "sts:TagSession"]
+    actions = ["sts:AssumeRoleWithWebIdentity", "sts:TagSession", "sts:AssumeRole"]
 
     principals {
       type        = "Service"
@@ -148,7 +148,7 @@ data "aws_iam_policy_document" "lambda_role_policy_document" {
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:MBTI-Inside/server:*"]
+      values   = ["repo:MBTI-Inside/*:*"]
     }
 
     condition {
@@ -176,7 +176,13 @@ data "aws_iam_policy_document" "lambda_access_policy_document" {
   statement {
     effect = "Allow"
     actions = [
+      "s3:PutObject",
+
+      "iam:ListRoles",
+
+      "lambda:UpdateFunctionCode",
       "lambda:CreateFunction",
+      "lambda:GetFunction",
       "lambda:GetFunctionConfiguration",
       "lambda:UpdateFunctionConfiguration",
 
@@ -193,5 +199,17 @@ data "aws_iam_policy_document" "lambda_access_policy_document" {
       "logs:CreateLogStream",
     "logs:PutLogEvents"]
     resources = [aws_lambda_function.test_lambda.arn]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "xray:PutTraceSegments",
+      "xray:PutTelemetryRecords",
+      "xray:GetSamplingRules",
+      "xray:GetSamplingTargets",
+      "xray:GetSamplingStatisticSummaries"
+    ]
+    resources = ["*"]
   }
 }
