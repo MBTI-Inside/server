@@ -134,7 +134,7 @@ resource "aws_iam_role" "lambda_role" {
 data "aws_iam_policy_document" "lambda_role_policy_document" {
   statement {
     effect  = "Allow"
-    actions = ["sts:AssumeRole", "sts:AssumeRoleWithWebIdentity", "sts:TagSession"]
+    actions = ["sts:AssumeRoleWithWebIdentity", "sts:TagSession"]
 
     principals {
       type        = "Service"
@@ -175,7 +175,11 @@ resource "aws_iam_policy" "lambda_access_policy" {
 data "aws_iam_policy_document" "lambda_access_policy_document" {
   statement {
     effect = "Allow"
-    actions = ["lambda:*",
+    actions = [
+      "lambda:CreateFunction",
+      "lambda:GetFunctionConfiguration",
+      "lambda:UpdateFunctionConfiguration",
+
       "ec2:CreateNetworkInterface",
       "ec2:DescribeNetworkInterfaces",
       "ec2:DescribeSubnets",
@@ -188,6 +192,6 @@ data "aws_iam_policy_document" "lambda_access_policy_document" {
       "logs:CreateLogGroup",
       "logs:CreateLogStream",
     "logs:PutLogEvents"]
-    resources = ["*"]
+    resources = [aws_lambda_function.test_lambda.arn]
   }
 }
