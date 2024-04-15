@@ -31,4 +31,4 @@ jobs:
           dry_run: true
           image_uri: ${{secrets.AWS_ECR_REPOSITORY_URL}}:${{ github.event.inputs.image }}
           function_name: mbti_backend
-          role: ${{ secrets.AWS_LAMBDA_ROLE_ARN }}
+          # role: ${{ secrets.AWS_LAMBDA_ROLE_ARN }}
