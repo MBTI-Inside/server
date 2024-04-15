@@ -4,6 +4,26 @@ resource "aws_iam_user" "mbti_cicd_user" {
   name = "mbti_cicd"
 }
 
+resource "aws_iam_user_policy_attachment" "this" {
+  user       = aws_iam_user.mbti_cicd_user.name
+  policy_arn = aws_iam_policy.user_role.arn
+}
+
+resource "aws_iam_policy" "user_role" {
+  name        = "user_role"
+  path        = "/"
+  description = "Allows pass role"
+  policy      = data.aws_iam_policy_document.user_role.json
+}
+
+data "aws_iam_policy_document" "user_role" {
+  statement {
+    effect    = "Allow"
+    actions   = ["iam:PassRole"]
+    resources = ["*"]
+  }
+}
+
 resource "aws_iam_access_key" "mbti_cicd_access_key" {
   user = aws_iam_user.mbti_cicd_user.name
 }
@@ -26,7 +46,47 @@ data "aws_iam_policy_document" "cicd_assume_role_policy_document" {
     effect    = "Allow"
     actions   = ["sts:AssumeRole"]
     resources = [aws_iam_role.ecr_role.arn, aws_iam_role.lambda_role.arn]
+  }
 
+  # githuba actions lambda 임시코드
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+
+      "iam:ListRoles",
+
+      "lambda:UpdateFunctionCode",
+      "lambda:CreateFunction",
+      "lambda:GetFunction",
+      "lambda:GetFunctionConfiguration",
+      "lambda:UpdateFunctionConfiguration",
+
+      "ec2:CreateNetworkInterface",
+      "ec2:DescribeNetworkInterfaces",
+      "ec2:DescribeSubnets",
+      "ec2:DeleteNetworkInterface",
+      "ec2:AssignPrivateIpAddresses",
+      "ec2:UnassignPrivateIpAddresses",
+      "ec2:DescribeSecurityGroups",
+      "ec2:DescribeSubnets",
+      "ec2:DescribeVpcs",
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+    "logs:PutLogEvents"]
+    resources = [aws_lambda_function.test_lambda.arn]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "xray:PutTraceSegments",
+      "xray:PutTelemetryRecords",
+      "xray:GetSamplingRules",
+      "xray:GetSamplingTargets",
+      "xray:GetSamplingStatisticSummaries"
+    ]
+    resources = ["*"]
   }
 }
 
@@ -208,7 +268,8 @@ data "aws_iam_policy_document" "lambda_access_policy_document" {
       "xray:PutTelemetryRecords",
       "xray:GetSamplingRules",
       "xray:GetSamplingTargets",
-      "xray:GetSamplingStatisticSummaries"
+      "xray:GetSamplingStatisticSummaries",
+      "iam:PassRole"
     ]
     resources = ["*"]
   }
