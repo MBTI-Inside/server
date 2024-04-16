@@ -4,26 +4,6 @@ resource "aws_iam_user" "mbti_cicd_user" {
   name = "mbti_cicd"
 }
 
-resource "aws_iam_user_policy_attachment" "this" {
-  user       = aws_iam_user.mbti_cicd_user.name
-  policy_arn = aws_iam_policy.user_role.arn
-}
-
-resource "aws_iam_policy" "user_role" {
-  name        = "user_role"
-  path        = "/"
-  description = "Allows pass role"
-  policy      = data.aws_iam_policy_document.user_role.json
-}
-
-data "aws_iam_policy_document" "user_role" {
-  statement {
-    effect    = "Allow"
-    actions   = ["iam:PassRole"]
-    resources = ["*"]
-  }
-}
-
 resource "aws_iam_access_key" "mbti_cicd_access_key" {
   user = aws_iam_user.mbti_cicd_user.name
 }

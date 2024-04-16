@@ -8,7 +8,6 @@ on:
         required: true
 permissions:
   id-token: write
-#   contents: read
 
 jobs:
   deploy:
@@ -24,11 +23,8 @@ jobs:
       - name: AWS Lambda Deploy
         uses: appleboy/lambda-action@v0.1.9
         with:
-          # aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          # aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ap-northeast-2
           description: 'Deploy from GitHub Actions'
           dry_run: true
           image_uri: ${{secrets.AWS_ECR_REPOSITORY_URL}}:${{ github.event.inputs.image }}
           function_name: mbti_backend
-          # role: ${{ secrets.AWS_LAMBDA_ROLE_ARN }}
