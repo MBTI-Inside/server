@@ -194,12 +194,16 @@ resource "aws_iam_role" "lambda_role" {
 data "aws_iam_policy_document" "lambda_role_policy_document" {
   statement {
     effect  = "Allow"
-    actions = ["sts:AssumeRoleWithWebIdentity", "sts:TagSession", "sts:AssumeRole"]
-
+    actions = ["sts:AssumeRole"]
     principals {
       type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
     }
+  }
+
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRoleWithWebIdentity", "sts:TagSession"]
 
     principals {
       type        = "Federated"
@@ -208,7 +212,7 @@ data "aws_iam_policy_document" "lambda_role_policy_document" {
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:MBTI-Inside/*:*"]
+      values   = ["repo:MBTI-Inside/server:*"]
     }
 
     condition {
@@ -257,7 +261,14 @@ data "aws_iam_policy_document" "lambda_access_policy_document" {
       "ec2:DescribeVpcs",
       "logs:CreateLogGroup",
       "logs:CreateLogStream",
-    "logs:PutLogEvents"]
+      "logs:PutLogEvents",
+
+      "xray:PutTraceSegments",
+      "xray:PutTelemetryRecords",
+      "xray:GetSamplingRules",
+      "xray:GetSamplingTargets",
+      "xray:GetSamplingStatisticSummaries"
+    ]
     resources = [aws_lambda_function.test_lambda.arn]
   }
 
