@@ -40,11 +40,9 @@ jobs:
         run: echo "DATETIME=$(date +"%Y%m%dT%H%M%S")" >> $GITHUB_ENV
       - name: Create .env
         run: |
-          echo "MONGODB_URI=$MONGODB_URI" >> backend/.env
-          echo "MONGODB_DATABASE=$MONGODB_DATABASE" >> backend/.env
           echo "MONGODB_OPTIONS=$MONGODB_OPTIONS" >> backend/.env
-          echo "MONGODB_USERNAME=$MONGODB_USERNAME" >> backend/.env
-          echo "MONGODB_PASSWORD=$MONGODB_PASSWORD" >> backend/.env
+          cat backend/.env
+          cat pwd
       - name: Set Image tag
         id: image-tag
         run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
