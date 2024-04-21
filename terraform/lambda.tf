@@ -2,7 +2,7 @@ resource "aws_lambda_function" "test_lambda" {
   function_name = "mbti_backend"
   package_type  = "Image"
   role          = aws_iam_role.lambda_role.arn
-  image_uri     = "013373444325.dkr.ecr.ap-northeast-2.amazonaws.com/cicd_repository:20240414T160519-ca512a2"
+  image_uri     = "013373444325.dkr.ecr.ap-northeast-2.amazonaws.com/cicd_repository:20240417T160140-256d443"
   memory_size   = "1024"
   timeout       = "10"
 
@@ -10,7 +10,9 @@ resource "aws_lambda_function" "test_lambda" {
 
 
   vpc_config {
-    subnet_ids         = [aws_subnet.public_subnet.id, aws_subnet.public_subnet2.id]
+    subnet_ids = [
+      aws_subnet.private_subnet.id
+    ]
     security_group_ids = [aws_security_group.backend_server_sg.id]
   }
 

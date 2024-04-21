@@ -249,7 +249,7 @@ data "aws_iam_policy_document" "lambda_access_policy_document" {
       "xray:GetSamplingTargets",
       "xray:GetSamplingStatisticSummaries"
     ]
-    resources = [aws_lambda_function.test_lambda.arn]
+    resources = ["*"]
   }
 
   statement {

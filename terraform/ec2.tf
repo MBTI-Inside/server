@@ -1,51 +1,29 @@
-# data "aws_ami" "this" {
-#   most_recent = true
-#   owners      = ["amazon"]
+data "aws_ami" "fck-nat-ami" {
+  most_recent = true
+  filter {
+    name   = "name"
+    values = ["fck-nat-al2023-*"]
+  }
+  filter {
+    name   = "architecture"
+    values = ["arm64"]
+  }
 
-#   filter {
-#     name   = "name"
-#     values = ["amzn2-ami-hvm-*-gp2"]
-#   }
-#   filter {
-#     name   = "root-device-type"
-#     values = ["ebs"]
-#   }
-#   filter {
-#     name   = "architecture"
-#     values = ["x86_64"]
-#   }
-#   filter {
-#     name   = "virtualization-type"
-#     values = ["hvm"]
-#   }
-# }
+  owners = ["568608671756"]
+}
 
-# resource "aws_launch_template" "ecs_launch_template" {
-#   name_prefix   = "ecs-template"
-#   image_id      = data.aws_ami.this.id
-#   instance_type = "t3.micro"
+resource "aws_instance" "nat_instnace" {
+  ami                         = data.aws_ami.fck-nat-ami.id
+  instance_type               = "t4g.nano"
+  subnet_id                   = aws_subnet.public_subnet.id
+  vpc_security_group_ids      = [aws_security_group.nat_instance_sg.id]
+  associate_public_ip_address = true
+  source_dest_check           = false
+  key_name                    = var.nat_instance_access_key
 
-#   key_name               = var.access_key_backend_server
-#   vpc_security_group_ids = [aws_security_group.backend_server_sg.id]
-
-#   iam_instance_profile {
-#     name = aws_iam_instance_profile.ec2_role_profile.name
-#   }
-
-#   block_device_mappings {
-#     device_name = "/dev/xvda"
-#     ebs {
-#       volume_size = 30
-#       volume_type = "gp2"
-#     }
-#   }
-
-#   tag_specifications {
-#     resource_type = "instance"
-#     tags = {
-#       Name = "MBTI-ECS-Instance"
-#     }
-#   }
-
-#   user_data = filebase64("${path.module}/userdata.sh")
-# }
+  root_block_device {
+    volume_size = 8
+    volume_type = "gp2"
+    encrypted   = true
+  }
+}

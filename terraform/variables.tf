@@ -13,3 +13,7 @@ variable "github_actions_identity_provider_arn" {
 variable "ecs_image_tag" {
   description = "temp tag for ecs image"
 }
+
+variable "nat_instance_access_key" {
+  description = "nat instance access key"
+}
