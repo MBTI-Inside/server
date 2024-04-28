@@ -1,15 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ISurveyService } from './survey.service.interface';
-import {
-  CreateSurveyCommand,
-  DeleteSurveyCommand,
-  GetAllSurveyQuery,
-  GetOneSurveyQuery,
-  UpdateSurveyCommand
-} from '../dto/survey.dto';
 import { ISurveyModel } from '../db/model/survey.model.interface';
 import { MONGO_SURVEY_MODEL } from '../db/model/survey.model';
 import { Survey } from '../domain/survey.domain';
+import { GetAllSurveyQuery } from '../controller/query/get-all-survey.query';
+import { GetOneSurveyQuery } from '../controller/query/get-one-survey.query';
+import { CreateSurveyCommand } from '../controller/command/create-survey.command';
+import { UpdateSurveyCommand } from '../controller/command/update-survey.command';
+import { DeleteSurveyCommand } from '../controller/command/delete-survey.command';
 
 export const SURVEY_SERVICE = 'SURVEY_SERVICE';
 

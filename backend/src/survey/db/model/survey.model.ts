@@ -51,7 +51,11 @@ export class SurveyModel implements ISurveyModel {
   }
 
   async findOneById(surveyId: string): Promise<Survey> {
-    const survey = await this.surveyModel.findById(surveyId).lean().exec();
+    const survey = await this.surveyModel
+      .findOne({ _id: this._changeStringIdToObjectId(surveyId) })
+      .lean()
+      .exec();
+
     return Survey.new(this._changeObjectIdToStringId(survey));
   }
 

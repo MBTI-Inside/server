@@ -1,8 +1,7 @@
-export interface ISurvey {
-  get getId(): string;
-  get properties(): ISurveyProperties;
-  set setAnswer(answer: IAnswer[]);
-  set setSubject(subject: string);
+export interface IAnswer {
+  type: string;
+  select: string;
+  proportion: number;
 }
 
 export interface ISurveyProperties {
@@ -11,10 +10,11 @@ export interface ISurveyProperties {
   answer: IAnswer[];
 }
 
-export interface IAnswer {
-  type: string;
-  select: string;
-  proportion: number;
+export interface ISurvey {
+  get getId(): string;
+  get properties(): ISurveyProperties;
+  set setAnswer(answer: IAnswer[]);
+  set setSubject(subject: string);
 }
 
 export class Survey implements ISurvey {
