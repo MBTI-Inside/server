@@ -104,6 +104,7 @@ export class SurveyController {
   @Get('results/:surveyResultId')
   getOneResult(@Param('surveyResultId') surveyResultId: string) {
     const getOneSurveyResultQuery = new GetOneSurveyResultQuery(surveyResultId);
+
     return this.surveyResultService.getOne(getOneSurveyResultQuery);
   }
 
