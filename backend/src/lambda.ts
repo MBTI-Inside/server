@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { winstonLogger } from './util/logger';
 import { Callback, Context, Handler } from 'aws-lambda';
 import serverlessExpress from '@codegenie/serverless-express';
+import { AllExceptionFilter } from './filters/exception.filter';
 
 let server: Handler;
 
@@ -15,6 +16,8 @@ async function bootstrap() {
     optionsSuccessStatus: 200,
     credentials: true
   });
+
+  app.useGlobalFilters(new AllExceptionFilter());
 
   await app.init();
 
