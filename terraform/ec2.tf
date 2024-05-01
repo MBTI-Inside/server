@@ -27,3 +27,8 @@ resource "aws_instance" "nat_instnace" {
     encrypted   = true
   }
 }
+
+resource "aws_eip" "nat_instance_eip" {
+  instance = aws_instance.nat_instnace.id
+  domain   = "vpc"
+}
