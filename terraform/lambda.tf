@@ -4,7 +4,7 @@ resource "aws_lambda_function" "test_lambda" {
   role          = aws_iam_role.lambda_role.arn
   image_uri     = "013373444325.dkr.ecr.ap-northeast-2.amazonaws.com/cicd_repository:20240417T160140-256d443"
   memory_size   = "1024"
-  timeout       = "10"
+  timeout       = "900"
 
 
 
