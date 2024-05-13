@@ -31,13 +31,19 @@ resource "aws_apigatewayv2_stage" "lambda" {
 resource "aws_apigatewayv2_integration" "lambda" {
   api_id = aws_apigatewayv2_api.lambda.id
 
-  integration_uri  = aws_lambda_function.test_lambda.invoke_arn
-  integration_type = "AWS_PROXY"
+  integration_uri    = aws_lambda_function.test_lambda.invoke_arn
+  integration_type   = "AWS_PROXY"
+  integration_method = "POST"
+
+  lifecycle {
+    create_before_destroy = true
+
+  }
 }
 
 resource "aws_apigatewayv2_route" "lambda" {
   api_id    = aws_apigatewayv2_api.lambda.id
-  route_key = "$default"
+  route_key = "ANY /{proxy+}"
   target    = "integrations/${aws_apigatewayv2_integration.lambda.id}"
 }
 
