@@ -38,16 +38,7 @@ export const MongooseConfig: MongooseModuleAsyncOptions = {
       return connection;
     },
     connectionErrorFactory: (error: MongooseError) => {
-      logger.error(
-        `Mongoose에서 에러가 발생하였습니다: ${error}`,
-        configService.get('MONGODB_URI') + configService.get('MONGODB_OPTIONS')
-      );
-      logger.error(
-        `uri: ${
-          configService.get('MONGODB_URI') +
-          configService.get('MONGODB_OPTIONS')
-        }`
-      );
+      logger.error(`Mongoose에서 에러가 발생하였습니다: ${error}`);
       return error;
     },
     retryAttempts: 1
