@@ -40,7 +40,8 @@ export const MongooseConfig: MongooseModuleAsyncOptions = {
     connectionErrorFactory: (error: MongooseError) => {
       logger.error(`Mongoose에서 에러가 발생하였습니다: ${error}`);
       return error;
-    }
+    },
+    retryAttempts: 1
   })
 };
 

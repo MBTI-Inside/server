@@ -10,6 +10,7 @@ FROM public.ecr.aws/lambda/nodejs:20 AS deploy
 
 WORKDIR /app
 
+COPY --from=build_backend /app/backend/.env ${LAMBDA_TASK_ROOT}
 COPY --from=build_backend /app/backend/dist ${LAMBDA_TASK_ROOT}
 COPY --from=build_backend /app/backend/node_modules ${LAMBDA_TASK_ROOT}/node_modules
 
