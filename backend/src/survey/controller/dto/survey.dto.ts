@@ -1,10 +1,12 @@
 import {
+  IsEnum,
   IsNumber,
   IsOptional,
   IsString,
   ValidateNested
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { MbtiType } from 'src/survey/domain/survey.domain';
 
 export class CreateSurveyDto {
   @IsString()
@@ -13,6 +15,9 @@ export class CreateSurveyDto {
   @ValidateNested({ each: true })
   @Type(() => SurveyAnswerDto)
   answer: SurveyAnswerDto[];
+
+  @IsEnum(MbtiType)
+  mbtiType: MbtiType;
 }
 
 export class UpdateSurveyDto {
@@ -24,6 +29,10 @@ export class UpdateSurveyDto {
   @Type(() => SurveyAnswerDto)
   @IsOptional()
   answer: SurveyAnswerDto[];
+
+  @IsEnum(MbtiType)
+  @IsOptional()
+  mbtiType: MbtiType;
 }
 
 export class SurveyAnswerDto {
@@ -31,7 +40,7 @@ export class SurveyAnswerDto {
   type: string;
 
   @IsString()
-  select: string;
+  content: string;
 
   @IsNumber()
   proportion: number;

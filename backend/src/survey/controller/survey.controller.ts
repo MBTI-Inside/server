@@ -35,7 +35,7 @@ export class SurveyController {
     private readonly surveyResultService: ISurveyResultService
   ) {}
 
-  @Get('test')
+  @Get('questions')
   getAll(
     @Query('limit', ParseIntPipe) limit = 100,
     @Query('skip', ParseIntPipe) skip = 0,
@@ -51,32 +51,37 @@ export class SurveyController {
     return this.surveyService.getAll(getAllSurveyQuery);
   }
 
-  @Get('test/:surveyId')
+  @Get('questions/:surveyId')
   getOne(@Param('surveyId') surveyId: string) {
     const getOneSurveyQuery = new GetOneSurveyQuery(surveyId);
     return this.surveyService.getOne(getOneSurveyQuery);
   }
 
-  @Post('test')
-  createOne(@Body() { subject, answer }: CreateSurveyDto) {
-    const createSurveyCommand = new CreateSurveyCommand(subject, answer);
+  @Post('questions')
+  createOne(@Body() { subject, answer, mbtiType }: CreateSurveyDto) {
+    const createSurveyCommand = new CreateSurveyCommand(
+      subject,
+      answer,
+      mbtiType
+    );
     return this.surveyService.createOne(createSurveyCommand);
   }
 
-  @Put('test/:surveyId')
+  @Put('questions/:surveyId')
   updateOne(
     @Param('surveyId') surveyId: string,
-    @Body() { subject, answer }: UpdateSurveyDto
+    @Body() { subject, answer, mbtiType }: UpdateSurveyDto
   ) {
     const updateSuveryCommand = new UpdateSurveyCommand(
       surveyId,
       subject,
-      answer
+      answer,
+      mbtiType
     );
     return this.surveyService.updateOne(updateSuveryCommand);
   }
 
-  @Delete('test/:surveyId')
+  @Delete('questions/:surveyId')
   deleteOne(@Param('surveyId') surveyId: string) {
     const deleteSurveyCommand = new DeleteSurveyCommand(surveyId);
     return this.surveyService.deleteOne(deleteSurveyCommand);

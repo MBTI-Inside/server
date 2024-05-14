@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { IAnswer } from 'src/survey/domain/survey.domain';
+import { IAnswer, MbtiType } from 'src/survey/domain/survey.domain';
 
 @Schema({
   timestamps: true,
@@ -13,6 +13,9 @@ export class SurveyEntity {
 
   @Prop({ required: true })
   answer: IAnswer[];
+
+  @Prop({ required: true })
+  mbtiType: MbtiType;
 }
 
 export const SurveySchema = SchemaFactory.createForClass(SurveyEntity);

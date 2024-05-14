@@ -25,12 +25,17 @@ export class SurveyService implements ISurveyService {
     return this.surveyModel.findOneById(surveyId);
   }
 
-  createOne({ subject, answer }: CreateSurveyCommand) {
-    const survey = Survey.new({ subject, answer });
+  createOne({ subject, answer, mbtiType }: CreateSurveyCommand) {
+    const survey = Survey.new({ subject, answer, mbtiType });
     return this.surveyModel.createOne(survey);
   }
 
-  async updateOne({ surveyId, subject, answer }: UpdateSurveyCommand) {
+  async updateOne({
+    surveyId,
+    subject,
+    answer,
+    mbtiType
+  }: UpdateSurveyCommand) {
     const survey = await this.surveyModel.findOneById(surveyId);
     if (!survey) {
       throw new Error('Survey not found');
@@ -38,6 +43,7 @@ export class SurveyService implements ISurveyService {
 
     subject && (survey.setSubject = subject);
     answer?.length && (survey.setAnswer = answer);
+    mbtiType && (survey.setMbtiType = mbtiType);
 
     return this.surveyModel.updateOne(survey);
   }
