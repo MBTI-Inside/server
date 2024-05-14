@@ -37,7 +37,7 @@ export class SurveyService implements ISurveyService {
     mbtiType
   }: UpdateSurveyCommand) {
     const survey = await this.surveyModel.findOneById(surveyId);
-    if (!survey) {
+    if (!survey.getId) {
       throw new Error('Survey not found');
     }
 
@@ -50,7 +50,7 @@ export class SurveyService implements ISurveyService {
 
   async deleteOne({ surveyId }: DeleteSurveyCommand) {
     const survey = await this.surveyModel.findOneById(surveyId);
-    if (!survey) {
+    if (!survey.getId) {
       throw new Error('Survey not found');
     }
 
