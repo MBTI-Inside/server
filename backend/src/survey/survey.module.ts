@@ -1,10 +1,4 @@
-import {
-  DynamicModule,
-  ForwardReference,
-  Module,
-  Provider,
-  Type
-} from '@nestjs/common';
+import { Module, Provider } from '@nestjs/common';
 import { SurveyController } from './controller/survey.controller';
 import { SURVEY_SERVICE, SurveyService } from './service/survey.service';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -23,34 +17,49 @@ import {
   SURVEY_RESULT_SERVICE,
   SurveyResultService
 } from './service/survey-result.service';
+import {
+  CompatibilityEntity,
+  CompatibilitySchema
+} from './db/schema/compatibility.schema';
+import {
+  CompatibilityModel,
+  MONGO_COMPATIBILITY_MODEL
+} from './db/model/compatibility.model';
+import {
+  COMPATIBILITY_SERVICE,
+  CompatibilityService
+} from './service/compatibility.service';
 
-type ImportType = Array<
-  Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference
->;
+const mongooseModule = MongooseModule.forFeature(
+  [
+    { name: SurveyEntity.name, schema: SurveySchema },
+    {
+      name: SurveyResultEntity.name,
+      schema: SurveyResultSchema
+    },
+    {
+      name: CompatibilityEntity.name,
+      schema: CompatibilitySchema
+    }
+  ],
+  MONGO_ARE_YOU_T_DATABASE
+);
 
-const IMPORTS: ImportType = [
-  MongooseModule.forFeature(
-    [
-      { name: SurveyEntity.name, schema: SurveySchema },
-      {
-        name: SurveyResultEntity.name,
-        schema: SurveyResultSchema
-      }
-    ],
-    MONGO_ARE_YOU_T_DATABASE
-  )
-];
-
-const PROVIDERS: Provider[] = [
+const services: Provider[] = [
   { provide: SURVEY_SERVICE, useClass: SurveyService },
   { provide: SURVEY_RESULT_SERVICE, useClass: SurveyResultService },
+  { provide: COMPATIBILITY_SERVICE, useClass: CompatibilityService }
+];
+
+const models: Provider[] = [
   { provide: MONGO_SURVEY_MODEL, useClass: SurveyModel },
-  { provide: MONGO_SURVEY_RESULT_MODEL, useClass: SurveyResultModel }
+  { provide: MONGO_SURVEY_RESULT_MODEL, useClass: SurveyResultModel },
+  { provide: MONGO_COMPATIBILITY_MODEL, useClass: CompatibilityModel }
 ];
 
 @Module({
-  imports: [...IMPORTS],
+  imports: [mongooseModule],
   controllers: [SurveyController],
-  providers: [...PROVIDERS]
+  providers: [...services, ...models]
 })
 export class SurveyModule {}
