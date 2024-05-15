@@ -3,7 +3,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MongooseConfig } from './config/mongoose.config';
 import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
-import { BoardModule } from './board/board.module';
 import { LoggerModule } from './logger/logger.module';
 import Joi from 'joi';
 import { APP_PIPE } from '@nestjs/core';
@@ -30,7 +29,6 @@ import { ValidationError } from 'class-validator';
       }
     }),
     HealthModule,
-    BoardModule,
     LoggerModule,
     SurveyModule
   ],
