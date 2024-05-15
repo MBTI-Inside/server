@@ -1,22 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-
-export class ResultsEntity {
-  @Prop({ required: true })
-  surveyId: string;
-
-  @Prop({ required: true })
-  answer: string;
-
-  @Prop({ required: true })
-  proportion: number;
-
-  @Prop({ required: true })
-  select: string;
-
-  @Prop({ required: true })
-  type: string;
-}
+import {
+  IAwareness,
+  IEnergy,
+  IJudgement,
+  ILife
+} from 'src/survey/domain/survey-result.domain';
 
 @Schema({
   timestamps: true,
@@ -28,13 +17,31 @@ export class SurveyResultEntity {
   userId: string;
 
   @Prop({ required: true })
-  results: ResultsEntity[];
+  mbti: string;
 
   @Prop({ required: true })
-  finalType: string;
+  tags: string[];
 
   @Prop({ required: true })
-  finalTypeProportion: number;
+  description: string;
+
+  @Prop({ required: true })
+  goodCompatibilityId: string;
+
+  @Prop({ required: true })
+  badCompatibilityId: string;
+
+  @Prop({ required: true })
+  energy: IEnergy[];
+
+  @Prop({ required: true })
+  awareness: IAwareness[];
+
+  @Prop({ required: true })
+  judgement: IJudgement[];
+
+  @Prop({ required: true })
+  life: ILife[];
 }
 
 export const SurveyResultSchema =

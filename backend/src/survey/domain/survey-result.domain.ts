@@ -1,17 +1,34 @@
-export interface IResults {
-  surveyId: string;
-  answer: string;
+export interface IMbtiResult {
   proportion: number;
-  select: string;
-  type: string;
+}
+export interface IEnergy extends IMbtiResult {
+  type: 'I' | 'E';
+}
+
+export interface IAwareness extends IMbtiResult {
+  type: 'N' | 'S';
+}
+
+export interface IJudgement extends IMbtiResult {
+  type: 'T' | 'F';
+}
+
+export interface ILife extends IMbtiResult {
+  type: 'J' | 'P';
 }
 
 export interface ISurveyResultProperties {
   id?: string;
   userId: string;
-  results: IResults[];
-  finalType: string;
-  finalTypeProportion: number;
+  mbti: string;
+  tags: string[];
+  description: string;
+  goodCompatibilityId: string;
+  badCompatibilityId: string;
+  energy: IEnergy[];
+  awareness: IAwareness[];
+  judgement: IJudgement[];
+  life: ILife[];
 }
 
 export interface ISurveyResult {
@@ -22,9 +39,15 @@ export interface ISurveyResult {
 export class SurveyResult implements ISurveyResult {
   private id?: string;
   private userId: string;
-  private results: IResults[];
-  private finalType: string;
-  private finalTypeProportion: number;
+  private mbti: string;
+  private tags: string[];
+  private description: string;
+  private goodCompatibilityId: string;
+  private badCompatibilityId: string;
+  private energy: IEnergy[];
+  private awareness: IAwareness[];
+  private judgement: IJudgement[];
+  private life: ILife[];
 
   private constructor(properties: ISurveyResultProperties) {
     Object.assign(this, properties);
@@ -38,9 +61,15 @@ export class SurveyResult implements ISurveyResult {
     return {
       id: this.id,
       userId: this.userId,
-      results: this.results,
-      finalType: this.finalType,
-      finalTypeProportion: this.finalTypeProportion
+      mbti: this.mbti,
+      tags: this.tags,
+      description: this.description,
+      goodCompatibilityId: this.goodCompatibilityId,
+      badCompatibilityId: this.badCompatibilityId,
+      energy: this.energy,
+      awareness: this.awareness,
+      judgement: this.judgement,
+      life: this.life
     };
   }
 

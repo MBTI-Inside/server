@@ -38,16 +38,28 @@ export class SurveyResultService implements ISurveyResultService {
   }
 
   async createOne({
-    results,
-    finalType,
-    finalTypeProportion,
-    userId
+    userId,
+    mbti,
+    tags,
+    description,
+    goodCompatibilityId,
+    badCompatibilityId,
+    energy,
+    awareness,
+    judgement,
+    life
   }: CreateSurveyResultCommand): Promise<void> {
     const surveyResult = SurveyResult.new({
-      results,
-      finalType,
-      finalTypeProportion,
-      userId
+      userId,
+      mbti,
+      tags,
+      description,
+      goodCompatibilityId,
+      badCompatibilityId,
+      energy,
+      awareness,
+      judgement,
+      life
     });
 
     await this.surveyResultModel.createOne(surveyResult);
@@ -60,7 +72,7 @@ export class SurveyResultService implements ISurveyResultService {
       surveyResultId
     );
 
-    if (!surveyResult) {
+    if (!surveyResult.getId) {
       throw new Error('Survey result not found');
     }
 

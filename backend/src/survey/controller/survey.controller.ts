@@ -116,13 +116,30 @@ export class SurveyController {
   @Post('results')
   createOneResult(
     @Body()
-    { results, finalType, finalTypeProportion, userId }: CreateSurveyResultDto
+    {
+      userId,
+      mbti,
+      tags,
+      description,
+      goodCompatibilityId,
+      badCompatibilityId,
+      energy,
+      awareness,
+      judgement,
+      life
+    }: CreateSurveyResultDto
   ) {
     const createSurveyResultCommand = new CreateSurveyResultCommand(
-      results,
-      finalType,
-      finalTypeProportion,
-      userId
+      userId,
+      mbti,
+      tags,
+      description,
+      goodCompatibilityId,
+      badCompatibilityId,
+      energy,
+      awareness,
+      judgement,
+      life
     );
 
     return this.surveyResultService.createOne(createSurveyResultCommand);

@@ -89,6 +89,8 @@ export class SurveyResultModel implements ISurveyResultModel {
   _changeObjectIdToStringId(
     surveyResult: Omit<ISurveyResultProperties, 'id'> & { _id: Types.ObjectId }
   ) {
+    if (!surveyResult) return null;
+
     const { _id, ...data } = surveyResult;
     return { id: String(_id), ...data };
   }
