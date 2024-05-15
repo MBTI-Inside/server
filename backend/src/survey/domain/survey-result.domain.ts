@@ -1,3 +1,15 @@
+import { BadRequestException } from '@nestjs/common';
+
+const ResultsLengthNotValidError = new BadRequestException(
+  'Results length is not valid'
+);
+const ResultsProportionNotValidError = new BadRequestException(
+  'Results proportion is not valid'
+);
+const ResultsTypeNotValidError = new BadRequestException(
+  'Results type is not valid'
+);
+
 export interface IMbtiResult {
   proportion: number;
 }
@@ -34,6 +46,7 @@ export interface ISurveyResultProperties {
 export interface ISurveyResult {
   get properties(): ISurveyResultProperties;
   get getId(): string;
+  validateResults(): void;
 }
 
 export class SurveyResult implements ISurveyResult {
@@ -75,5 +88,48 @@ export class SurveyResult implements ISurveyResult {
 
   get getId(): string {
     return this.id;
+  }
+
+  private _validateResultsLength(): boolean {
+    return (
+      this.energy.length === 2 &&
+      this.awareness.length === 2 &&
+      this.judgement.length === 2 &&
+      this.life.length === 2
+    );
+  }
+
+  private _validateResultsProportion(): boolean {
+    return (
+      this.energy.reduce((acc, { proportion }) => acc + proportion, 0) === 1 &&
+      this.awareness.reduce((acc, { proportion }) => acc + proportion, 0) ===
+        1 &&
+      this.judgement.reduce((acc, { proportion }) => acc + proportion, 0) ===
+        1 &&
+      this.life.reduce((acc, { proportion }) => acc + proportion, 0) === 1
+    );
+  }
+
+  private _validateResultsType(): boolean {
+    return (
+      this.energy.every(({ type }) => ['I', 'E'].includes(type)) &&
+      this.awareness.every(({ type }) => ['N', 'S'].includes(type)) &&
+      this.judgement.every(({ type }) => ['T', 'F'].includes(type)) &&
+      this.life.every(({ type }) => ['J', 'P'].includes(type))
+    );
+  }
+
+  validateResults(): void {
+    if (!this._validateResultsLength()) {
+      throw ResultsLengthNotValidError;
+    }
+
+    if (!this._validateResultsProportion()) {
+      throw ResultsProportionNotValidError;
+    }
+
+    if (!this._validateResultsType()) {
+      throw ResultsTypeNotValidError;
+    }
   }
 }

@@ -62,6 +62,8 @@ export class SurveyResultService implements ISurveyResultService {
       life
     });
 
+    surveyResult.validateResults();
+
     await this.surveyResultModel.createOne(surveyResult);
   }
 
