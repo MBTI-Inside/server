@@ -9,6 +9,10 @@ on:
 permissions:
   id-token: write
 
+env:
+  AWS_LAMBDA_FUNCTION_NAME: mbti_backend
+  AWS_LAMBDA_IMAGE_URI: ${{secrets.AWS_ECR_REPOSITORY_URL}}:${{ github.event.inputs.image }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,10 +25,4 @@ jobs:
           role-session-name: GitHubActions
           aws-region: ap-northeast-2
       - name: AWS Lambda Deploy
-        uses: appleboy/lambda-action@v0.1.9
-        with:
-          aws_region: ap-northeast-2
-          description: 'Deploy from GitHub Actions'
-          dry_run: true
-          image_uri: ${{secrets.AWS_ECR_REPOSITORY_URL}}:${{ github.event.inputs.image }}
-          function_name: mbti_backend
+        run: aws lambda update-function-code --function-name $AWS_LAMBDA_FUNCTION_NAME --image-uri $AWS_LAMBDA_IMAGE_URI
