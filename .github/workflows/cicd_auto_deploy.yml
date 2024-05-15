@@ -17,7 +17,7 @@ env:
   AWS_LAMBDA_FUNCTION_NAME: mbti_backend
   AWS_LAMBDA_REPOSITORY_URL: ${{secrets.AWS_ECR_REPOSITORY_URL}}
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -55,3 +55,12 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$DATETIME-$SHA_SHORT .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$DATETIME-$SHA_SHORT
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_LAMBDA_ROLE_ARN }}
+          role-session-name: GitHubActions
+          aws-region: ap-northeast-2
+      - name: AWS Lambda Deploy
+        run: |
+          aws lambda update-function-code --function-name $AWS_LAMBDA_FUNCTION_NAME --image-uri $AWS_LAMBDA_REPOSITORY_URL:$DATETIME-$SHA_SHORT --publish
