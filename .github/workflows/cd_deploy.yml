@@ -25,4 +25,5 @@ jobs:
           role-session-name: GitHubActions
           aws-region: ap-northeast-2
       - name: AWS Lambda Deploy
-        run: aws lambda update-function-code --function-name $AWS_LAMBDA_FUNCTION_NAME --image-uri $AWS_LAMBDA_IMAGE_URI
+        run: |
+          aws lambda update-function-code --function-name $AWS_LAMBDA_FUNCTION_NAME --image-uri $AWS_LAMBDA_IMAGE_URI --publish
