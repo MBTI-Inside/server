@@ -11,8 +11,12 @@ import {
   Query
 } from '@nestjs/common';
 import { ISurveyService } from '../service/survey.service.interface';
-import { CreateSurveyDto, UpdateSurveyDto } from './dto/survey.dto';
-import { SortType } from 'src/common/types';
+import {
+  CreateSurveyDto,
+  SurveyResponse,
+  UpdateSurveyDto
+} from './dto/survey.dto';
+import { SortType, SortTypeArray } from 'src/common/types';
 import { SURVEY_SERVICE } from '../service/survey.service';
 import { SURVEY_RESULT_SERVICE } from '../service/survey-result.service';
 import { ISurveyResultService } from '../service/survey-result.interface';
@@ -23,7 +27,10 @@ import { UpdateSurveyCommand } from './command/update-survey.command';
 import { DeleteSurveyCommand } from './command/delete-survey.command';
 import { GetAllSurveyResultsQuery } from './query/get-all-survey-result.query';
 import { GetOneSurveyResultQuery } from './query/get-one-survey-result.query';
-import { CreateSurveyResultDto } from './dto/survey-result.dto';
+import {
+  CreateSurveyResultDto,
+  SurveyResultResponse
+} from './dto/survey-result.dto';
 import { CreateSurveyResultCommand } from './command/create-survey-result.command';
 import { DeleteSurveyResultCommand } from './command/delete-survey-result.command';
 import { GetAllCompatibilityQuery } from './query/get-all-compatibility.query';
@@ -32,11 +39,13 @@ import { CreateCompatibilityCommand } from './command/create-compatibility.comma
 import { UpdateCompatibilityCommand } from './command/update-compatibility.command';
 import { DeleteCompatibilityCommand } from './command/delete-compatibility.command';
 import {
+  CompatibilityResponse,
   CreateCompatibilityDto,
   UpdateCompatibilityDto
 } from './dto/compatibility.dto';
 import { ICompatibilityService } from '../service/compatibility.interface';
 import { COMPATIBILITY_SERVICE } from '../service/compatibility.service';
+import { ApiOkResponse, ApiQuery } from '@nestjs/swagger';
 
 @Controller('survey')
 export class SurveyController {
@@ -48,6 +57,31 @@ export class SurveyController {
     private readonly compatibilityService: ICompatibilityService
   ) {}
 
+  @ApiOkResponse({ type: [SurveyResponse] })
+  @ApiQuery({
+    name: 'limit',
+    required: true,
+    type: Number,
+    description: 'default 100'
+  })
+  @ApiQuery({
+    name: 'skip',
+    required: true,
+    type: Number,
+    description: 'default 0'
+  })
+  @ApiQuery({
+    name: 'sortField',
+    required: true,
+    enum: ['id'],
+    description: 'default id'
+  })
+  @ApiQuery({
+    name: 'sortType',
+    required: true,
+    enum: SortTypeArray,
+    description: 'default desc'
+  })
   @Get('questions')
   getAllQuestions(
     @Query('limit', ParseIntPipe) limit = 100,
@@ -64,12 +98,14 @@ export class SurveyController {
     return this.surveyService.getAll(getAllSurveyQuery);
   }
 
+  @ApiOkResponse({ type: SurveyResponse })
   @Get('questions/:surveyId')
   getOneQuestion(@Param('surveyId') surveyId: string) {
     const getOneSurveyQuery = new GetOneSurveyQuery(surveyId);
     return this.surveyService.getOne(getOneSurveyQuery);
   }
 
+  @ApiOkResponse({})
   @Post('questions')
   createOneQuestion(@Body() { subject, answer, mbtiType }: CreateSurveyDto) {
     const createSurveyCommand = new CreateSurveyCommand(
@@ -80,6 +116,7 @@ export class SurveyController {
     return this.surveyService.createOne(createSurveyCommand);
   }
 
+  @ApiOkResponse({})
   @Put('questions/:surveyId')
   updateOneQuestion(
     @Param('surveyId') surveyId: string,
@@ -94,12 +131,38 @@ export class SurveyController {
     return this.surveyService.updateOne(updateSuveryCommand);
   }
 
+  @ApiOkResponse({})
   @Delete('questions/:surveyId')
   deleteOneQuestion(@Param('surveyId') surveyId: string) {
     const deleteSurveyCommand = new DeleteSurveyCommand(surveyId);
     return this.surveyService.deleteOne(deleteSurveyCommand);
   }
 
+  @ApiOkResponse({ type: [SurveyResultResponse] })
+  @ApiQuery({
+    name: 'limit',
+    required: true,
+    type: Number,
+    description: 'default 100'
+  })
+  @ApiQuery({
+    name: 'skip',
+    required: true,
+    type: Number,
+    description: 'default 0'
+  })
+  @ApiQuery({
+    name: 'sortField',
+    required: true,
+    enum: ['id'],
+    description: 'default id'
+  })
+  @ApiQuery({
+    name: 'sortType',
+    required: true,
+    enum: SortTypeArray,
+    description: 'default desc'
+  })
   @Get('results')
   getAllResults(
     @Query('userId') userId: string,
@@ -119,6 +182,7 @@ export class SurveyController {
     return this.surveyResultService.getAll(getAllSurveyResultsQuery);
   }
 
+  @ApiOkResponse({ type: SurveyResultResponse })
   @Get('results/:surveyResultId')
   getOneResult(@Param('surveyResultId') surveyResultId: string) {
     const getOneSurveyResultQuery = new GetOneSurveyResultQuery(surveyResultId);
@@ -126,6 +190,7 @@ export class SurveyController {
     return this.surveyResultService.getOne(getOneSurveyResultQuery);
   }
 
+  @ApiOkResponse({})
   @Post('results')
   createOneResult(
     @Body()
@@ -158,6 +223,7 @@ export class SurveyController {
     return this.surveyResultService.createOne(createSurveyResultCommand);
   }
 
+  @ApiOkResponse({})
   @Delete('results/:surveyResultId')
   deleteOneResult(@Param('surveyResultId') surveyResultId: string) {
     const deleteSurveyResultCommand = new DeleteSurveyResultCommand(
@@ -166,6 +232,31 @@ export class SurveyController {
     return this.surveyResultService.deleteOne(deleteSurveyResultCommand);
   }
 
+  @ApiOkResponse({ type: [CompatibilityResponse] })
+  @ApiQuery({
+    name: 'limit',
+    required: true,
+    type: Number,
+    description: 'default 100'
+  })
+  @ApiQuery({
+    name: 'skip',
+    required: true,
+    type: Number,
+    description: 'default 0'
+  })
+  @ApiQuery({
+    name: 'sortField',
+    required: true,
+    enum: ['id'],
+    description: 'default id'
+  })
+  @ApiQuery({
+    name: 'sortType',
+    required: true,
+    enum: SortTypeArray,
+    description: 'default desc'
+  })
   @Get('compatibilities')
   getAllCompatibilities(
     @Query('limit', ParseIntPipe) limit = 100,
@@ -182,6 +273,7 @@ export class SurveyController {
     return this.compatibilityService.getAll(getAllCompatibilitiesQuery);
   }
 
+  @ApiOkResponse({ type: CompatibilityResponse })
   @Get('compatibilities/:compatibilityId')
   getCompatibilityOne(@Param('compatibilityId') compatibilityId: string) {
     const getOneCompatibilityQuery = new GetOneCompatibilityQuery(
@@ -190,6 +282,7 @@ export class SurveyController {
     return this.compatibilityService.getOne(getOneCompatibilityQuery);
   }
 
+  @ApiOkResponse({})
   @Post('compatibilities')
   createCompatibility(
     @Body() { type, mbti, targetMbti, description }: CreateCompatibilityDto
@@ -203,6 +296,7 @@ export class SurveyController {
     return this.compatibilityService.createOne(createCompatibilityCommand);
   }
 
+  @ApiOkResponse({})
   @Put('compatibilities/:compatibilityId')
   updateCompatibility(
     @Param('compatibilityId') compatibilityId: string,
@@ -219,6 +313,7 @@ export class SurveyController {
     return this.compatibilityService.updateOne(updateCompatibilityCommand);
   }
 
+  @ApiOkResponse({})
   @Delete('compatibilities/:compatibilityId')
   deleteCompatibility(@Param('compatibilityId') compatibilityId: string) {
     const deleteCompatibilityCommand = new DeleteCompatibilityCommand(
