@@ -23,7 +23,9 @@ async function bootstrap() {
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('MBTI API')
-    .setDescription('MBTI API')
+    .setDescription(
+      'MBTI API Host: https://hgurpwho0b.execute-api.ap-northeast-2.amazonaws.com/mbti-labmda-stage'
+    )
     .setVersion('1.0')
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
