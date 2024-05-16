@@ -8,6 +8,7 @@ import Joi from 'joi';
 import { APP_PIPE } from '@nestjs/core';
 import { SurveyModule } from './survey/survey.module';
 import { ValidationError } from 'class-validator';
+import { MbtiModule } from './mbti/mbti.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { ValidationError } from 'class-validator';
     }),
     HealthModule,
     LoggerModule,
-    SurveyModule
+    SurveyModule,
+    MbtiModule
   ],
   controllers: [],
   providers: [
