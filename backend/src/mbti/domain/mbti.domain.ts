@@ -14,7 +14,7 @@ export interface IMbtiProperties {
   id?: string;
   mbti: string;
   summary: string;
-  count: number;
+  count?: number;
   tags: string[];
   description: string;
   goodCompatibilityId: string;
@@ -25,7 +25,7 @@ export class Mbti implements IMbti {
   private id?: string;
   private mbti: string;
   private summary: string;
-  private count: number;
+  private count = 0;
   private tags: string[];
   private description: string;
   private goodCompatibilityId: string;
