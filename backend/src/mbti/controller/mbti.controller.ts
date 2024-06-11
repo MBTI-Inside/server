@@ -93,7 +93,7 @@ export class MbtiController {
   }
 
   @Delete(':mbtiId')
-  deleteOne(@Param('mbtiID') mbtiId: string) {
+  deleteOne(@Param('mbtiId') mbtiId: string) {
     const command = new DeleteMbtiCommand(mbtiId);
 
     return this.mbtiService.deleteOne(command);
