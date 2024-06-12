@@ -9,6 +9,8 @@ import { APP_PIPE } from '@nestjs/core';
 import { SurveyModule } from './survey/survey.module';
 import { ValidationError } from 'class-validator';
 import { MbtiModule } from './mbti/mbti.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -32,7 +34,9 @@ import { MbtiModule } from './mbti/mbti.module';
     HealthModule,
     LoggerModule,
     SurveyModule,
-    MbtiModule
+    MbtiModule,
+    AuthModule,
+    UserModule
   ],
   controllers: [],
   providers: [

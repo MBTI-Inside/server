@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "README",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "start": "docker compose -f docker-compose.local.yml up --build=${npm_config_build:-false} --detach=${npm_config_detach:-false}"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/passport": "^10.0.3",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
+  }
 }
