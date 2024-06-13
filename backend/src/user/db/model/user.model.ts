@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { IUserModel } from './user.model.interface';
 import { IUser, User } from 'src/user/domain/user.domain';
-import { FindUserFieldsType } from './user.model.type';
 import { FindFilter } from 'src/common/types';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserEntity } from '../schema/user.schema';
@@ -11,6 +10,9 @@ import {
   changeObjectIdToStringId,
   changeStringIdToObjectId
 } from 'src/util/converter';
+import { FindUserFieldsType } from 'src/user/service/type/type';
+
+export const MONGO_USER_MODEL = 'MONGO_USER_MODEL';
 
 @Injectable()
 export class UserModel implements IUserModel {
@@ -20,7 +22,12 @@ export class UserModel implements IUserModel {
   ) {}
   async findAll(
     { id, name }: FindUserFieldsType,
-    { limit, skip, sortField, sortType }: FindFilter
+    { limit, skip, sortField, sortType }: FindFilter = {
+      limit: 100,
+      skip: 0,
+      sortField: '_id',
+      sortType: 'desc'
+    }
   ): Promise<IUser[]> {
     const users: IUser[] = [];
     const usersCursor = this.userModel

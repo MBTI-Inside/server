@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { UserPlatform } from 'src/user/service/type/type';
 
 @Schema({
   timestamps: true,
@@ -15,6 +16,9 @@ export class UserEntity {
 
   @Prop({ required: true })
   name: string;
+
+  @Prop({ required: true, enum: UserPlatform })
+  platform: UserPlatform;
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserEntity);

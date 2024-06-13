@@ -8,6 +8,8 @@ export interface IUserProperties {
 export interface IUser {
   get getId(): string;
   get properties(): IUserProperties;
+  set setName(name: string);
+  set setEmail(email: string);
 }
 
 export class User implements IUser {
@@ -35,5 +37,13 @@ export class User implements IUser {
       email: this.email,
       password: this.password
     };
+  }
+
+  set setName(name: string) {
+    this.name = name;
+  }
+
+  set setEmail(email: string) {
+    this.email = email;
   }
 }
