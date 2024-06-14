@@ -24,6 +24,14 @@ async function bootstrap() {
 
   app.use(helmet());
 
+  app.enableCors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+    methods: '*',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+    optionsSuccessStatus: 200
+  });
+
   await app.listen(process.env.PORT);
 }
 
