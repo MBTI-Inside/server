@@ -17,6 +17,7 @@ const models: Provider[] = [{ provide: MONGO_USER_MODEL, useClass: UserModel }];
 @Module({
   imports: [mongooseModule],
   controllers: [],
-  providers: [...services, ...models]
+  providers: [...services, ...models],
+  exports: [...models]
 })
 export class UserModule {}
