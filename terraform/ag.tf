@@ -2,8 +2,8 @@ resource "aws_apigatewayv2_api" "lambda" {
   name          = "mbti-lambda-gw"
   protocol_type = "HTTP"
   cors_configuration {
-    allow_origins     = ["http://*"]
-    allow_headers     = ["*"]
+    allow_origins     = ["http://localhost:5173"]
+    allow_headers     = ["Content-Type", "Accept", "Authorization"]
     allow_methods     = ["*"]
     max_age           = 300
     allow_credentials = true

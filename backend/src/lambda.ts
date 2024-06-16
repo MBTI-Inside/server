@@ -14,18 +14,18 @@ async function bootstrap() {
     logger: winstonLogger
   });
   app.enableCors({
-    origin: process.env.CORS_ORIGIN,
-    optionsSuccessStatus: 200,
-    credentials: true
+    origin: process.env.CLIENT_HOST,
+    credentials: true,
+    methods: '*',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+    optionsSuccessStatus: 200
   });
 
   app.useGlobalFilters(new AllExceptionFilter());
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('MBTI API')
-    .setDescription(
-      'MBTI API Host: https://hgurpwho0b.execute-api.ap-northeast-2.amazonaws.com/mbti-labmda-stage'
-    )
+    .setDescription(`MBTI API Host: ${process.env.SERVER_HOST}}`)
     .setVersion('1.0')
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
