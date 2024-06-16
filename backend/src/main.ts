@@ -25,7 +25,7 @@ async function bootstrap() {
   app.use(helmet());
 
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: process.env.CLIENT_HOST,
     credentials: true,
     methods: '*',
     allowedHeaders: 'Content-Type, Accept, Authorization',
