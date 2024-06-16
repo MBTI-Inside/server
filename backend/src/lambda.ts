@@ -14,10 +14,18 @@ async function bootstrap() {
     logger: winstonLogger
   });
   app.enableCors({
-    origin: process.env.CLIENT_HOST,
+    origin: [process.env.CLIENT_HOST],
     credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: 'Content-Type, Accept, Authorization',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH', 'HEAD'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'X-Requested-With',
+      'X-HTTP-Method-Override',
+      'X-Forwarded-Proto',
+      'X-Forwarded-For',
+      'X-Forwarded-Port'
+    ],
     optionsSuccessStatus: 200
   });
 
