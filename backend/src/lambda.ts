@@ -16,8 +16,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [process.env.CLIENT_HOST],
     credentials: true,
-    // methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH', 'HEAD'],
-    methods: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH', 'HEAD'],
     allowedHeaders: [
       'Content-Type',
       'Authorization',
@@ -27,7 +26,7 @@ async function bootstrap() {
       'X-Forwarded-For',
       'X-Forwarded-Port'
     ],
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 204
   });
 
   app.useGlobalFilters(new AllExceptionFilter());
