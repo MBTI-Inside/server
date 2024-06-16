@@ -13,7 +13,6 @@ resource "aws_apigatewayv2_api" "lambda" {
     allow_methods     = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"]
     max_age           = 300
     allow_credentials = true
-    # expose_headers    = ["x-api-id", "*"]
   }
 }
 
