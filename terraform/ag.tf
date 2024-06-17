@@ -1,6 +1,19 @@
 resource "aws_apigatewayv2_api" "lambda" {
   name          = "mbti-lambda-gw"
   protocol_type = "HTTP"
+  cors_configuration {
+    allow_origins = [var.mbti_client_local_host]
+    allow_headers = ["Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "X-HTTP-Method-Override",
+      "X-Forwarded-Proto",
+      "X-Forwarded-For",
+    "X-Forwarded-Port"]
+    allow_methods     = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"]
+    max_age           = 300
+    allow_credentials = true
+  }
 }
 
 resource "aws_apigatewayv2_stage" "lambda" {

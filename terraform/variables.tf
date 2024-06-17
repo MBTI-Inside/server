@@ -17,3 +17,7 @@ variable "ecs_image_tag" {
 variable "nat_instance_access_key" {
   description = "nat instance access key"
 }
+
+variable "mbti_client_local_host" {
+  description = "mbti client local host"
+}
