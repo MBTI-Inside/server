@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { MemoEntity } from '../schema/memo.schema';
 import { MONGO_ARE_YOU_T_DATABASE } from 'src/config/mongoose.config';
 import { Model } from 'mongoose';
-import { IMemo, IMemoProperties, Memo } from 'src/memo/domain/memo.domain';
+import { IMemo, Memo } from 'src/memo/domain/memo.domain';
 import { FindFilter } from 'src/common/types';
 import { FindMemoFieldsType } from 'src/memo/service/type/type';
 import { from, lastValueFrom, map, toArray } from 'rxjs';
@@ -94,7 +94,18 @@ export class MemoModel implements IMemoModel {
     );
   }
 
-  async deleteOne(memoId: string): Promise<void> {
-    await this.memoModel.findByIdAndDelete(changeStringIdToObjectId(memoId));
+  async deleteOne(memoId: string): Promise<IMemo> {
+    return lastValueFrom(
+      from(
+        this.memoModel.findByIdAndDelete(changeStringIdToObjectId(memoId), {
+          new: true
+        })
+      ).pipe(
+        map((memo) => {
+          delete memo.password;
+          return Memo.new(changeObjectIdToStringId(memo));
+        })
+      )
+    );
   }
 }
